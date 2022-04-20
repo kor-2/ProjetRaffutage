@@ -3,8 +3,140 @@
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    --ombre: #52565A;
+    --noir: #000000;
+    --blanc: #ffffff;
 }
 #wrapper{
     margin: 0 auto;
     max-width: 1200px;
+}
+
+/*
+* **********************Logo raffutage
+*/
+
+.logo{
+    width: 20%;
+}
+
+.logo a{
+    width: 100%;
+}
+.logo a img{
+    width: 100%;
+}
+
+/*
+******************** Navbar
+*/
+
+#navigation{
+    background-color: var(--ombre);
+    display: flex;
+    justify-content: space-around;
+}
+
+#navigation ul {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 0;
+    white-space: nowrap; 
+
+}
+#navigation ul li{
+    list-style: none;
+    padding: 0 15px;
+}
+#navigation ul li a{
+    text-decoration: none;
+    color: var(--blanc);
+    font-weight: bold;
+}
+#navigation ul li a:hover{
+    border-bottom: 2px solid var(--blanc);
+}
+
+
+
+#navigation ul:last-child li a{
+    text-decoration: none;
+    color: var(--noir);
+    font-weight: bold;
+    border: 1px solid var(--noir);
+    padding: 10px 15px;
+    background-color: var(--blanc);
+    
+}
+
+#navigation ul:last-child li a:hover{
+    color: var(--blanc);
+    border: 1px solid var(--blanc);
+    background-color: var(--ombre);
+}
+/*
+********************** Footer
+*/
+
+footer{
+    background-color: var(--ombre);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--blanc);
+    height: 130px;
+}
+
+footer .logo{
+    width: 15%;
+}
+
+#listFooter ul{
+    display: flex;
+    padding: 0;
+}
+#listFooter ul li{
+    list-style-type: none;
+    padding: 0 15px;
+}
+#listFooter ul li a{
+    text-decoration: none;
+    color: var(--blanc);
+    font-weight: bold;
+}
+#listFooter ul li a:hover{
+    border-bottom: 2px solid var(--blanc);
+}
+
+#copyright p{
+    padding: 0 15px;
+}
+
+
+/*
+* **********************Header accueil
+*/
+
+#headerAccueil{
+    background-image: url('../image/couteau-accueil.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#headerAccueil h1{
+    font-size: 5em;
+}
+
+#headerAccueil a{
+    text-decoration: none;
+    color: var(--blanc);
+    padding: 10px 15px;
+    width: 100%;
+    background-color: var(--ombre);
 }

@@ -6,8 +6,8 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" 
-                integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+            <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" 
+                integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"> -->
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
         {% endblock %}
@@ -18,24 +18,36 @@
 
         <div id="wrapper">
 
-        <nav>
+        <nav id="navigation">
+
+            
             <ul>
-                <li><a href="#">LOGO</a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#">LOGO</a></li>
-                <li><a href="#">LOGO</a></li>
-                {% if is_granted('ROLE_ADMIN') %}
+                <div class="logo">
+                    <a href="{{ path('app_home') }}">
+                        <img src="{{ asset('image/Raffutage-logos_white.png') }}" alt="Logo raffutage">
+                    </a>
+                </div>
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a href="#">Rendez vous</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact</a></li>
+                
+            </ul>
+            <ul>
+            {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="#">Admin</a></li>
                 
                 {% endif %}
                 {% if app.user %}
                 
+                    <li><a href="">Mon compte</a></li>
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                 {% else %}
                     
                     <li><a href="{{ path('app_login') }}">Connexion</a></li>
                     <li><a href="{{ path('app_register') }}">Inscription</a></li>
                 {% endif %}
+
             </ul>
 
 
@@ -46,6 +58,28 @@
               {% block body %}
               
               {% endblock %}
+              <footer>
+                <div class="logo">
+                    <a href="{{ path('app_home') }}">
+                        <img src="{{ asset('image/Raffutage-logos_white.png') }}" alt="Logo raffutage">
+                    </a>
+                </div>
+                <div id="listFooter">
+                    <ul>
+                        <li> <a href="">Contact</a></li>
+                        <li> <a href="">FAQ</a></li>
+                        <li> <a href="">Mentions Légales</a></li>
+                    
+                    </ul>
+                </div>
+                <div id="copyright">
+                   <p>
+                        © Raffutage by Corentin
+                   </p>
+                </div>
+
+              
+              </footer>
               
         </div>
         {% block javascripts %}
