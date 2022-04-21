@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="Invalid credentials.">
+                <source>Invalid credentials.</source>
+                <target>L'e-mail et/ou le mot de passe n'est pas valide !</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -22,13 +22,38 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('telephone', TextType::class)
-            ->add('entreprise', TextType::class,[
-                'required' => false]
+            ->add('nom', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Nom',
+                    'class' => 'inputReg'
+                ]
+            ])
+            ->add('prenom', TextType::class,[
+                'attr' => [
+                    'placeholder' => 'Prenom',
+                    'class' => 'inputReg'
+                ]
+            ]
             )
-            ->add('email', EmailType::class)
+            ->add('telephone', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Téléphone',
+                    'class' => 'inputReg'
+                ]
+            ])
+            ->add('entreprise', TextType::class,[
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Entretreprise (facultatif)',
+                    'class' => 'inputReg'
+                ]
+            ])
+            ->add('email', EmailType::class,[
+                'attr' => [
+                    'placeholder' => 'Email',
+                    'class' => 'inputReg'
+                ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -40,11 +65,24 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les mot de passe doivent être similaire !',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmer mot de passe'],
+                'first_options' => [
+                    'label'=> false,
+                    'attr' =>[
+                        
+                        'placeholder' => 'Mot de passe',
+                        'class' => 'inputReg'
+                    ]
+            ],
+                'second_options' => [
+                    'label'=> false,
+                    'attr' =>[
+                        'placeholder' => 'Confirmer mot de passe',
+                        'class' => 'inputReg'
+                    ]
+                ],
                 'constraints' => [
                     new NotBlank(
                         [

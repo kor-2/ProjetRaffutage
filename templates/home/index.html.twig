@@ -4,18 +4,17 @@
 
 {% block body %}
 
+
 <header>
     <div id="headerAccueil">
         <div>
-
             <h1>Raffutage</h1>
             <p>
                 Affuter et affiler vos couteau de cuisine a domicile !
             </p>
         </div>
-        <div class="boutonGris">
-
-            <a href="#">Prendre rendez-vous</a>
+        <div>
+            <a class="boutonGris" href="#">Prendre rendez-vous</a>
         </div>
     </div>
 </header>
@@ -23,14 +22,39 @@
 <main>
 
     <div>
-        <h2>Information</h2>
+        <h2>Informations</h2>
     </div>
     <div class="ligneGrise"></div>
     <div id="infoAccueil">
-        <div>b1</div>
-        <div>b2</div>
-        <div>b3</div>
-        <div>b4</div>
+        <div>
+            <h3>Une question ?</h3>
+            <p>Besoin d'information sur les prestations ?</p>
+            <div>
+                <a class="boutonGris" href="#">FAQ</a>
+            </div>
+        </div>
+        <div>
+            <h3>M'écrire</h3>
+            <p>Besoin d'échanger avec moi ? Envoyer moi un message !</p>
+            <div>
+                <a class="boutonGris" href="#">Contact</a>
+            </div>
+        </div>
+        <div>
+            <h3>S'inscrire</h3>
+            <p>Pas encore inscrit ? <br> Inscrivez vous !</p>
+            <div>
+                <a class="boutonGris" href="{{ path('app_register') }}">Inscription</a>
+            </div>
+        </div>
+        <div>
+            <h3>Connexion</h3>
+            <p>Déjà inscrit ? <br> Connectez vous !</p>
+            <div>
+                <a class="boutonGris" href="{{ path('app_login') }}">Connexion</a>
+            </div>
+        </div>
+        
     </div>
 
 
