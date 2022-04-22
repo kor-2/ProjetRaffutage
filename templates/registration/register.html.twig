@@ -8,6 +8,16 @@
 <main>
 
     <h2>S'inscrire ou se connecter</h2>
+    {% for flash in app.flashes('verify_email_error') %}
+                <div class="alert alert-success">
+                    <div class="error">
+                        <p>
+
+                            {{ flash }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
      <div>
         <a class="boutonGris" href="{{ path('app_login') }}">Se connecter</a>
     </div>
@@ -50,12 +60,19 @@
         <div>
             {{ form_row(registrationForm.plainPassword) }}
         </div>
-        <div>
-            {{ form_row(registrationForm.agreeTerms) }}
+        <div class="agreeTerms">
+            {{ form_errors(registrationForm.agreeTerms) }}
+            <div>
+
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_widget(registrationForm.agreeTerms) }}
+            </div>
         </div>
-        <div>
+        <div class="valider">
+
             {{ form_row(registrationForm.valider) }}
         </div>
+    
         {{ form_end(registrationForm) }}
     </div>
 </main>

@@ -32,14 +32,14 @@
                             </a>
                         </div>
                         <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                        <li><a href="#">Rendez vous</a></li>
+                        <li><a href="{{ path('app_prestation') }}">Rendez vous</a></li>
                         <li><a href="#">FAQ</a></li>
                         <li><a href="#">Contact</a></li>
                         
                     </ul>
                     <ul>
                     {% if is_granted('ROLE_ADMIN') %}
-                            <li><a href="#">Admin</a></li>
+                            <li><a href="{{ path('admin') }}">Admin</a></li>
                         
                         {% endif %}
                         {% if app.user %}
@@ -57,6 +57,18 @@
 
             
             </nav>
+
+            {% for flash in app.flashes('success') %}
+                <div class="alert alert-success">
+                    <div class="success">
+                        <p>
+
+                            {{ flash }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+            
 
             <div id="wrapper">
                 {% block body %}

@@ -4,18 +4,17 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -23,42 +22,82 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
+                'constraints' => [
+                    new NotBlank(
+                        [
+                            'message' => 'Nom vide',
+                        ]
+                    ), /*
+                    new Regex(
+                        [
+                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                        ]
+                    ),*/
+                ],
                 'attr' => [
                     'placeholder' => 'Nom',
-                    'class' => 'inputReg'
-                ]
+                    'class' => 'inputReg',
+                ],
             ])
-            ->add('prenom', TextType::class,[
+            ->add('prenom', TextType::class, [
+                'constraints' => [
+                    new NotBlank(
+                        [
+                            'message' => 'Prénom vide',
+                        ]
+                    ), /*
+                    new Regex(
+                        [
+                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                        ]
+                    ),*/
+                ],
                 'attr' => [
                     'placeholder' => 'Prenom',
-                    'class' => 'inputReg'
-                ]
+                    'class' => 'inputReg',
+                ],
             ]
             )
             ->add('telephone', TextType::class, [
+                'constraints' => [
+                    new NotBlank(
+                        [
+                            'message' => 'Téléphone vide',
+                        ]
+                    ), /*
+                    new Regex(
+                        [
+                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                        ]
+                    ),*/
+                ],
                 'attr' => [
                     'placeholder' => 'Téléphone',
-                    'class' => 'inputReg'
-                ]
+                    'class' => 'inputReg',
+                ],
             ])
-            ->add('entreprise', TextType::class,[
+            ->add('entreprise', TextType::class, [
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Entretreprise (facultatif)',
-                    'class' => 'inputReg'
-                ]
+                    'class' => 'inputReg',
+                ],
             ])
-            ->add('email', EmailType::class,[
+            ->add('email', EmailType::class, [
                 'attr' => [
                     'placeholder' => 'Email',
-                    'class' => 'inputReg'
-                ]
+                    'class' => 'inputReg',
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'J\'ai lu et accepté les mentions légales de Rafffutage ',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez cocher la case des mentions légales !',
                     ]),
                 ],
             ])
@@ -69,26 +108,25 @@ class RegistrationFormType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options' => [
-                    'label'=> false,
-                    'attr' =>[
-                        
+                    'label' => false,
+                    'attr' => [
                         'placeholder' => 'Mot de passe',
-                        'class' => 'inputReg'
-                    ]
+                        'class' => 'inputReg',
+                    ],
             ],
                 'second_options' => [
-                    'label'=> false,
-                    'attr' =>[
+                    'label' => false,
+                    'attr' => [
                         'placeholder' => 'Confirmer mot de passe',
-                        'class' => 'inputReg'
-                    ]
+                        'class' => 'inputReg',
+                    ],
                 ],
                 'constraints' => [
                     new NotBlank(
                         [
                             'message' => 'Mot de passe vide',
                         ]
-                    ),/*
+                    ), /*
                     new Regex(
                         [
                             'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
@@ -97,7 +135,11 @@ class RegistrationFormType extends AbstractType
                     ),*/
                 ],
             ])
-            ->add('valider', SubmitType::class)
+            ->add('valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'boutonGris',
+                ],
+            ])
         ;
     }
 

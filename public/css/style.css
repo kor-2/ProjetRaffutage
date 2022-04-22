@@ -7,7 +7,6 @@
     --ombreClaire :#798086;
     --noir: #000000;
     --blanc: #ffffff;
-    --rougeErreur: #ff0000;
 }
 #wrapper{
     margin:0 auto;
@@ -33,9 +32,30 @@ h3{
 /*
 * *************************Message erreur
 */
+.success{
+    color: #b30000;
+    background-color: #ff9999;
+    border: 1px solid #b30000;
+    padding: 30px;
+    width: auto;
+}
+.success p{
+    text-align: center;
+}
 
-.erreur{
-    color: var(--rougeErreur);
+/*
+* ****************************Div success
+*/
+
+.success{
+    color: #00cc44;
+    background-color: #ccffdd;
+    border: 1px solid #00cc44;
+    padding: 30px;
+    width: auto;
+}
+.success p{
+    text-align: center;
 }
 
 /*
@@ -65,10 +85,12 @@ h3{
     background-color: var(--ombre);
     border: none;
     border-radius: none;
+    
 }
 
 .boutonGris:hover{
     background-color: var(--ombreClaire);
+    cursor: pointer;
 }
 
 
@@ -296,4 +318,14 @@ main h2{
     margin: 0 20px;
     width: 100%;
 
+}
+
+.agreeTerms
+.valider{
+    width: 100%;
+}
+.agreeTerms div,
+.valider div {
+    margin: 0 auto;
+    width: auto;
 }
