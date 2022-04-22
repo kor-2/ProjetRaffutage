@@ -30,8 +30,7 @@ class DashboardController extends AbstractDashboardController
         return[
         MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-        //MenuItem::section('Utilisateurs'),
-        //MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class),
+        MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         ];
     }
 }
