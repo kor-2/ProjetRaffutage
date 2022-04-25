@@ -28,10 +28,10 @@ class Facture
     private $paye;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Prestation::class, inversedBy="factures")
+     * @ORM\OneToOne(targetEntity=Commande::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $prestation;
+    private $commande;
 
     public function getId(): ?int
     {
@@ -62,14 +62,14 @@ class Facture
         return $this;
     }
 
-    public function getPrestation(): ?Prestation
+    public function getCommande(): ?Commande
     {
-        return $this->prestation;
+        return $this->commande;
     }
 
-    public function setPrestation(?Prestation $prestation): self
+    public function setCommande(?Commande $commande): self
     {
-        $this->prestation = $prestation;
+        $this->commande = $commande;
 
         return $this;
     }
