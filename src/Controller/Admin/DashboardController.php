@@ -40,6 +40,7 @@ class DashboardController extends AbstractDashboardController
         }
         $data = json_encode($rdvLibre);
         dump($data);
+        dump($rdvLibre);
 
         return $this->render('admin/planning.html.twig', [
             'data' => $data,
