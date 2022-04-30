@@ -23,7 +23,7 @@ class Commande
     private $nb_couteau;
 
     /**
-     * @ORM\OneToOne(targetEntity=prestation::class)
+     * @ORM\ManyToOne(targetEntity=Prestation::class, inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $prestation;
@@ -46,12 +46,12 @@ class Commande
         return $this;
     }
 
-    public function getPrestation(): ?prestation
+    public function getPrestation(): ?Prestation
     {
         return $this->prestation;
     }
 
-    public function setPrestation(?prestation $prestation): self
+    public function setPrestation(?Prestation $prestation): self
     {
         $this->prestation = $prestation;
 
@@ -69,5 +69,4 @@ class Commande
 
         return $this;
     }
-
 }
