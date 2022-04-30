@@ -75,7 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="client")
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="user")
      */
     private $commandes;
 
@@ -288,7 +288,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->commandes->contains($commande)) {
             $this->commandes[] = $commande;
-            $commande->setClient($this);
+            $commande->setUser($this);
         }
 
         return $this;
@@ -298,8 +298,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->commandes->removeElement($commande)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getClient() === $this) {
-                $commande->setClient(null);
+            if ($commande->getUser() === $this) {
+                $commande->setUser(null);
             }
         }
 

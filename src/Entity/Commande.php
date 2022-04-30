@@ -23,16 +23,26 @@ class Commande
     private $nb_couteau;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Prestation::class, inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $prestation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="commandes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Facture::class, inversedBy="commande")
      */
-    private $client;
+    private $facture;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getNbCouteau(): ?int
     {
@@ -42,6 +52,18 @@ class Commande
     public function setNbCouteau(int $nb_couteau): self
     {
         $this->nb_couteau = $nb_couteau;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
@@ -58,14 +80,14 @@ class Commande
         return $this;
     }
 
-    public function getClient(): ?user
+    public function getFacture(): ?Facture
     {
-        return $this->client;
+        return $this->facture;
     }
 
-    public function setClient(?user $client): self
+    public function setFacture(?Facture $facture): self
     {
-        $this->client = $client;
+        $this->facture = $facture;
 
         return $this;
     }
