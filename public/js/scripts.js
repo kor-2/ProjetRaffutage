@@ -2,9 +2,9 @@
 // affichage calendrier dashboard
 /////////////////////////////////////////////
 
-let rdv = document.getElementById('rdvJs').dataset.choise
-console.log("rdv")
-    console.log(rdv)
+// let rdv = document.getElementById('rdvJs').dataset.choise
+// console.log("rdv")
+    // console.log(rdv)
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -22,7 +22,7 @@ console.log("rdv")
         });
 
 //         const json = '{"result":true, "count":42}';
-// const obj = JSON.parse(json);
+// const obj = JSON.parse(json);  <- truc a voir
 
 // console.log(obj.count);
 // // expected output: 42
