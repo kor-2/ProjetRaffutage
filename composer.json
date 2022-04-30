@@ -18,6 +18,7 @@
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
+        "symfony/event-dispatcher": "5.4.*",
         "symfony/expression-language": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/form": "5.4.*",
@@ -42,6 +43,7 @@
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
         "symfonycasts/verify-email-bundle": "^1.10",
+        "tattali/calendar-bundle": "^1.2",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },

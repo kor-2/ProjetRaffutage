@@ -29,17 +29,19 @@ h3{
     flex-direction: column;
     justify-content: space-between;
 }
+
+
 /*
 * *************************Message erreur
 */
-.success{
+.error{
     color: #b30000;
     background-color: #ff9999;
     border: 1px solid #b30000;
     padding: 30px;
     width: auto;
 }
-.success p{
+.error p{
     text-align: center;
 }
 
