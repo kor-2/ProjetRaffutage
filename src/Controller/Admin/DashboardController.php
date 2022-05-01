@@ -35,12 +35,10 @@ class DashboardController extends AbstractDashboardController
                 'id' => $plan->getId(),
                 'start' => $plan->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $plan->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#80ffaa',
+                'backgroundColor' => '#009933',
             ];
         }
         $data = json_encode($rdvLibre);
-        dump($data);
-        dump($rdvLibre);
 
         return $this->render('admin/planning.html.twig', [
             'data' => $data,
@@ -64,6 +62,10 @@ class DashboardController extends AbstractDashboardController
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         ];
     }
+
+    /////////////////////////////////////////
+    // ajout de balise dans la balise head
+    //////////////////////////////////////////
 
     public function configureAssets(): Assets
     {
