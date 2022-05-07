@@ -22,6 +22,10 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard.html.twig');
     }
 
+    ////////////////////////////
+    // Page du planning
+    /////////////////////////////
+
     /**
      * @Route("/admin/planning", name="admin_planning")
      */
@@ -45,10 +49,13 @@ class DashboardController extends AbstractDashboardController
         ]);
     }
 
+    ////////////////////////////////////
+    // configuration du dashboard
+    ////////////////////////////////////
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ProjetRaffutage');
+            ->setTitle('Raffutage');
     }
 
     public function configureMenuItems(): iterable
