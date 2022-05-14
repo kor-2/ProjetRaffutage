@@ -97,4 +97,16 @@ class Prestation
 
         return $this;
     }
+
+    /////////////////////////////////
+    // Nouvelles méthodes
+    /////////////////////////////////
+
+    public function __toString()
+    {
+        $date = $this->getDebut();
+        $configDate = datefmt_create('fr_FR', \IntlDateFormatter::FULL, \IntlDateFormatter::NONE);
+
+        return ucfirst(datefmt_format($configDate, $date));
+    }
 }

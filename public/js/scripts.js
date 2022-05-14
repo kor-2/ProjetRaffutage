@@ -13,8 +13,6 @@ window.onload = function(){
 
 
   // analyse une chaine de caractère et la transforme en JSON 
-
-
   let creneauLibre = JSON.parse(rdv)
       
   let calendarEl = document.getElementById('calendar');

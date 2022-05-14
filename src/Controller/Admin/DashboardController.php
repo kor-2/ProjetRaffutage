@@ -79,12 +79,14 @@ class DashboardController extends AbstractDashboardController
         $assets = Assets::new();
 
         return $assets
+        // css pou le dashboard admin
+        ->addCssFile('css/admin.css')
         // css pour CalendarBundle
         ->addHtmlContentToHead('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.css" integrity="sha256-jLWPhwkAHq1rpueZOKALBno3eKP3m4IMB131kGhAlRQ=" crossorigin="anonymous">')
         // js pour CalendarBundle
         ->addHtmlContentToHead('<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>')
         ->addJsFile('js/scripts.js')
-        ->addCssFile('css/admin.css')
+
         ;
     }
 }
