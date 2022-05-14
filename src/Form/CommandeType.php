@@ -15,13 +15,13 @@ class CommandeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $repo = $options['data'];
         $builder
             ->add('nb_couteau', NumberType::class)
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,
-                'choice_label' => function (Prestation $presta) {
-                    return $presta;
-                },
+
+                'choices' => $repo->getCreneauLibre(),
             ])
             ->add('facture')
             ->add('Valider', SubmitType::class)

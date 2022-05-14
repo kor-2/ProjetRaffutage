@@ -45,6 +45,35 @@ class PrestationRepository extends ServiceEntityRepository
         }
     }
 
+    /////////////////////////////////////////
+    // Charche les créneau libre qui ne sont pas encore pris par des commandes
+    /////////////////////////////////////////
+
+    /**
+     * @return Prestation[] Returns an array of Prestation objects
+     */
+    public function getCreneauLibre()
+    {
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        $qb = $sub;
+        $qb->select('p')
+            ->from('App\Entity\Prestation', 'p')
+            ->leftJoin('p.commandes', 'co')
+            ->where('co.id != :id');
+
+        $sub = $em->createQueryBuilder();
+        $sub->select('pr')
+            ->from('App\Entity\Prestation', 'pr')
+            ->where($sub->expr()->notIn('pr.id', $qb->getDQL()))
+            ->setParameter('id', 'p.id')
+            ->orderby('pr.debut');
+        $query = $sub->getQuery();
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Prestation[] Returns an array of Prestation objects
     //  */
