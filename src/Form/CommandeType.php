@@ -14,21 +14,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommandeType extends AbstractType
 {
-    private $prestaRepo;
-
-    public function __construct(PrestationRepository $prestaRepo)
-    {
-        $this->prestaRepo = $prestaRepo;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $repo = $options['data'];
         $builder
             ->add('nb_couteau', NumberType::class)
             ->add('prestation', EntityType::class, [
                 'class' => Prestation::class,
-                'choices' => $this->prestaRepo->getCreneauLibre(),
+                'placeholder' => 'Choisir un créneau !',
+                'query_builder' => function (PrestationRepository $prestaRepo) {
+                    return $prestaRepo->getCreneauLibre(true);
+                },
             ])
             //->add('facture')
             ->add('Valider', SubmitType::class)
@@ -39,6 +34,7 @@ class CommandeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Commande::class,
+            //'data_class' => null,
         ]);
     }
 }

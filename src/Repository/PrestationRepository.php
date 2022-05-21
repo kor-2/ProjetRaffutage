@@ -46,14 +46,18 @@ class PrestationRepository extends ServiceEntityRepository
     }
 
     /////////////////////////////////////////
-    // Charche les créneau libre qui ne sont pas encore pris par des commandes
+    // Cherche les créneau libre qui ne sont pas encore pris par des commandes
     /////////////////////////////////////////
 
     /**
      * @return Prestation[] Returns an array of Prestation objects
      */
-    public function getCreneauLibre()
+    public function getCreneauLibre($sortieQuery = false)
     {
+        // prend la date d'aujourd'hui
+        $d = new \DateTime();
+        $d->modify('+2 hours');
+
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
 
@@ -67,11 +71,21 @@ class PrestationRepository extends ServiceEntityRepository
         $sub->select('pr')
             ->from('App\Entity\Prestation', 'pr')
             ->where($sub->expr()->notIn('pr.id', $qb->getDQL()))
+            ->andWhere('pr.debut > :today')
+            ->setParameter('today', $d)
             ->setParameter('id', 'p.id')
             ->orderby('pr.debut');
-        $query = $sub->getQuery();
+        //////////////////////////////////////////
+        // Si je met true en paratmetre la methode getCreneauLibre() alors elle me retourne un query builder
+        // si non c'est false par défaut et me retourne un array
+        //////////////////////////////////////////
+        if (!$sortieQuery) {
+            $query = $sub->getQuery();
 
-        return $query->getResult();
+            return $query->getResult();
+        } else {
+            return $sub;
+        }
     }
 
     // /**

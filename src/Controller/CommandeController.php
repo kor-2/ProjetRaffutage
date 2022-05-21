@@ -26,7 +26,7 @@ class CommandeController extends AbstractController
         ////////////////////////////////////
         $commande = new Commande();
 
-        $form = $this->createForm(CommandeType::class, $commande, ['data' => $prp]);
+        $form = $this->createForm(CommandeType::class, $commande, /*['data' => $prp]*/);
 
         return $this->render('commande/index.html.twig', [
             'titre' => ' - Prendre rendez-vous',
