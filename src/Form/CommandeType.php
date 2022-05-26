@@ -22,10 +22,9 @@ class CommandeType extends AbstractType
                 'class' => Prestation::class,
                 'placeholder' => 'Choisir un créneau !',
                 'query_builder' => function (PrestationRepository $prestaRepo) {
-                    return $prestaRepo->getCreneauLibre(true);
+                    return $prestaRepo->getCreneau(true,true);
                 },
             ])
-            //->add('facture')
             ->add('Valider', SubmitType::class)
         ;
     }
@@ -34,7 +33,6 @@ class CommandeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Commande::class,
-            //'data_class' => null,
         ]);
     }
 }

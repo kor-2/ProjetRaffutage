@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Repository\CommandeRepository;
 use App\Repository\PrestationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,8 @@ class CommandeController extends AbstractController
      */
     public function index(Request $request, PrestationRepository $prp): Response
     {
-        // test requete dql
-        $test = $prp->getCreneauLibre();
+        // test
+        $test = $prp->getCreneau(false,false, false);
         dump($test);
 
         ////////////////////////////////////
@@ -26,7 +27,7 @@ class CommandeController extends AbstractController
         ////////////////////////////////////
         $commande = new Commande();
 
-        $form = $this->createForm(CommandeType::class, $commande, /*['data' => $prp]*/);
+        $form = $this->createForm(CommandeType::class, $commande);
 
         return $this->render('commande/index.html.twig', [
             'titre' => ' - Prendre rendez-vous',

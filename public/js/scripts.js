@@ -9,7 +9,7 @@ window.onload = function(){
 
 
   let rdv = document.getElementById("rdvJs").dataset.choice
-  console.log(rdv)
+  
 
 
   // analyse une chaine de caractère et la transforme en JSON 

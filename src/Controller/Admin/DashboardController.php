@@ -31,7 +31,8 @@ class DashboardController extends AbstractDashboardController
      */
     public function planning(PrestationRepository $presRepo): Response
     {
-        $plans = $presRepo->findAll();
+        // prend les créneaux libre
+        $plans = $presRepo->getCreneau(false, false, true);
         $rdvLibre = [];
         foreach ($plans as $plan) {
             $rdvLibre[] = [
@@ -40,6 +41,17 @@ class DashboardController extends AbstractDashboardController
                 'start' => $plan->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $plan->getFin()->format('Y-m-d H:i:s'),
                 'backgroundColor' => '#009933',
+            ];
+        }
+        // prend les créneaux pris
+        $pris = $presRepo->getCreneau(false, false, false);
+        foreach ($pris as $pri) {
+            $rdvLibre[] = [
+                'title' => 'Créneau pris',
+                'id' => $pri->getId(),
+                'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
+                'end' => $pri->getFin()->format('Y-m-d H:i:s'),
+                'backgroundColor' => '#1a8cff',
             ];
         }
         $data = json_encode($rdvLibre);

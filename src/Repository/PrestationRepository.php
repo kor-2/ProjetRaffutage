@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Prestation;
+use App\Entity\Commande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -46,17 +47,18 @@ class PrestationRepository extends ServiceEntityRepository
     }
 
     /////////////////////////////////////////
-    // Cherche les créneau libre qui ne sont pas encore pris par des commandes
+    // Cherche les créneau libre qui sont encore disponible
+    // $sortieQuery =si false alors retourne un array sinon retourne un queryBuilder
+    // $tous = si true prend uniquement les dates qui sont dans le future
     /////////////////////////////////////////
 
     /**
      * @return Prestation[] Returns an array of Prestation objects
      */
-    public function getCreneauLibre($sortieQuery = false)
+    public function getCreneau($sortieQuery = false, $tous = false , $libre = true)
     {
         // prend la date d'aujourd'hui
-        $d = new \DateTime();
-        $d->modify('+2 hours');
+        $d = new \DateTime('now', new \DateTimeZone('EDT'));
 
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
@@ -69,16 +71,20 @@ class PrestationRepository extends ServiceEntityRepository
 
         $sub = $em->createQueryBuilder();
         $sub->select('pr')
-            ->from('App\Entity\Prestation', 'pr')
-            ->where($sub->expr()->notIn('pr.id', $qb->getDQL()))
-            ->andWhere('pr.debut > :today')
-            ->setParameter('today', $d)
-            ->setParameter('id', 'p.id')
+            ->from('App\Entity\Prestation', 'pr');
+
+        if ($libre) {
+            $sub->where($sub->expr()->notIn('pr.id', $qb->getDQL()));
+        }else{
+            $sub->where($sub->expr()->in('pr.id', $qb->getDQL()));
+        }
+
+        if ($tous) {
+            $sub->andWhere('pr.debut > :today')
+            ->setParameter('today', $d);
+        }
+        $sub->setParameter('id', 'p.id')
             ->orderby('pr.debut');
-        //////////////////////////////////////////
-        // Si je met true en paratmetre la methode getCreneauLibre() alors elle me retourne un query builder
-        // si non c'est false par défaut et me retourne un array
-        //////////////////////////////////////////
         if (!$sortieQuery) {
             $query = $sub->getQuery();
 
@@ -87,6 +93,7 @@ class PrestationRepository extends ServiceEntityRepository
             return $sub;
         }
     }
+    
 
     // /**
     //  * @return Prestation[] Returns an array of Prestation objects
