@@ -2,15 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Prestation;
+use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Prestation;
 use App\Repository\PrestationRepository;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -74,11 +75,13 @@ class DashboardController extends AbstractDashboardController
     {
         return[
         MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+        MenuItem::linkToRoute('Home','fa fa-store','app_home'),
         MenuItem::section('Planning'),
         MenuItem::linkToCrud('Créneaux horaires ', 'fas fa-clock', Prestation::class),
         MenuItem::linkToRoute('Planning', 'fas fa-calendar', 'admin_planning'),
-        MenuItem::section('Gestion entité'),
+        MenuItem::section('Gestion'),
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
+        MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', Type::class),
         ];
     }
 

@@ -39,6 +39,11 @@ class Commande
      */
     private $facture;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="commandes")
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Commande
     public function setFacture(?Facture $facture): self
     {
         $this->facture = $facture;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
