@@ -82,6 +82,7 @@ class DashboardController extends AbstractDashboardController
         MenuItem::section('Gestion'),
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', Type::class),
+        MenuItem::section('Comptabilité'),
         ];
     }
 
@@ -99,7 +100,8 @@ class DashboardController extends AbstractDashboardController
         // css pour CalendarBundle
         ->addHtmlContentToHead('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.css" integrity="sha256-jLWPhwkAHq1rpueZOKALBno3eKP3m4IMB131kGhAlRQ=" crossorigin="anonymous">')
         // js pour CalendarBundle
-        ->addHtmlContentToHead('<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>')
+        ->addHtmlContentToHead('<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.js" integrity="sha256-bFpArdcNM5XcSM+mBAUSDAt4YmEIeSAdUASB2rrSli4=" crossorigin="anonymous"></script>')
+        ->addHtmlContentToHead('<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js" integrity="sha256-Mu1bnaszjpLPWI+/bY7jB6JMtHj5nn9zIAsXMuaNxdk=" crossorigin="anonymous"></script>')
         ->addJsFile('js/scripts.js')
 
         ;

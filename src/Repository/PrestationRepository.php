@@ -58,7 +58,7 @@ class PrestationRepository extends ServiceEntityRepository
     public function getCreneau($sortieQuery = false, $tous = false , $libre = true)
     {
         // prend la date d'aujourd'hui
-        $d = new \DateTime('now', new \DateTimeZone('EDT'));
+        $d = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();

@@ -2,7 +2,7 @@
 // affichage calendrier dashboard
 /////////////////////////////////////////////
 
-window.onload = function(){
+document.addEventListener('DOMContentLoaded', function() {
 
   // recuperation des donnée de la table Prestation 
   // retourne une chaine de caratère exemple ->[{"title":"Cr\u00e9neau libre","id":1,"start":"2022-05-02 09:00:00","end":"2022-05-02 10:00:00","backgroundColor":"#009933"}]
@@ -17,17 +17,18 @@ window.onload = function(){
       
   let calendarEl = document.getElementById('calendar');
   let calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale: 'fr',
-    timeZone: 'Europe/Paris',
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay',
-      },
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+    },
     events: creneauLibre,
+    locale: 'fr',
+    ////////////////////////// marche pas : (
+    nowIndicator: true,
+    weekNumbers: true,
       
       
     })
   calendar.render();
-}
+})

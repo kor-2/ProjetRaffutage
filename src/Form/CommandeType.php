@@ -25,11 +25,6 @@ class CommandeType extends AbstractType
                 return $prestaRepo->getCreneau(true,true);
             },
         ])
-//////////////////////////////////////////////////////////////////////////////////
-        ->add('user', NumberType::class)
-        ->add('facture', NumberType::class)
-        ->add('type', NumberType::class)
-//////////////////////////////////////////////////////////////////////////////////
         ->add('Valider', SubmitType::class)
 
 

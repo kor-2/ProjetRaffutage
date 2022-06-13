@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Facture;
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Repository\TypeRepository;
 use App\Repository\PrestationRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommandeController extends AbstractController
@@ -16,10 +19,10 @@ class CommandeController extends AbstractController
     /**
      * @Route("/prise-de-rendez-vous", name="app_commande")
      */
-    public function index(ManagerRegistry $doctrine ,Request $request, PrestationRepository $prp): Response
+    public function index(UserInterface $user, ManagerRegistry $doctrine ,Request $request, TypeRepository $typeRepo): Response
     {
         // test
-        $test = $prp->getCreneau(false,false, false);
+        $test = $typeRepo->findOneBy(["id"=> 1]);
         dump($test);
 
         ////////////////////////////////////
@@ -33,7 +36,26 @@ class CommandeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            // crée une facture
+            $facture = new Facture();
+            $jour = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+            $facture->setDateFacturation($jour);
+            $facture->setPaye(false);
+
+            // recupere le type de couteau
+
+            $typeCouteau = $typeRepo->findOneBy(["id"=> 1]); ;
+
+            // crée une commande
+            $comm = new Commande();
             $comm = $form->getData();
+            $comm->setUser($user);
+            $comm->setFacture($facture);
+            $comm->setType($typeCouteau);
+            
+            $entityManager->persist($facture);
             $entityManager->persist($comm);
             $entityManager->flush();
             
