@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Facture;
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Repository\FactureRepository;
 use App\Repository\TypeRepository;
-use App\Repository\PrestationRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class CommandeController extends AbstractController
     public function index(UserInterface $user, ManagerRegistry $doctrine ,Request $request, TypeRepository $typeRepo): Response
     {
         // test
-        $test = $typeRepo->findOneBy(["id"=> 1]);
+        $test ="oui";
         dump($test);
 
         ////////////////////////////////////

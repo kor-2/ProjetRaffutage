@@ -45,6 +45,28 @@ class FactureRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Facture[] Returns an array of Facture objects
+     */
+    
+    public function getFactureByUserId($user)
+    {
+        return $this->createQueryBuilder('f')
+            ->leftJoin('f.commande', 'co')
+            ->where('co.user != :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    /*
+         select('f')
+            ->from('App\Entity\Facture', 'f')
+            ->leftJoin('f.commandes', 'co')
+            ->where('co.user != :id');
+     */
+    
+
     // /**
     //  * @return Facture[] Returns an array of Facture objects
     //  */

@@ -35,7 +35,7 @@ h3{
 
 .titre > h2 ,h3{
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
     display: flex;
     flex-direction: column;
 }
@@ -86,6 +86,21 @@ h3{
 }
 .logo a img{
     width: 100%;
+}
+
+/*
+* *****************Bouton supprimer
+*/
+
+.supp{
+
+    padding: 5px 10px;
+    background-color: #dc3545;
+    border-radius: 3px;
+    color: white;
+}
+.supp:hover{
+    background-color: #ff142c;
 }
 
 /*
@@ -348,13 +363,18 @@ main h2{
 /*
 * ************************** Page mon compte
 */
-.containerCompte table{
+ table{
     margin: 0 auto;
     margin-bottom: 50px;
+    border-collapse: collapse;
+    width: 60%;
+}
+.containerCompte .tableinfo tr td:last-child {
+    text-align: end;
 }
 
-.containerCompte table, td{
+
+.containerCompte td{
     border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
+    padding: 15px;
 }
