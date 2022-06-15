@@ -44,16 +44,16 @@
                     {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('admin') }}">Admin</a></li>
                         
-                        {% endif %}
-                        {% if app.user %}
+                    {% endif %}
+                    {% if app.user %}
                         
                             <li><a href="{{ path('app_mon_compte') }}">Mon compte</a></li>
                             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-                        {% else %}
+                    {% else %}
                             
                             <li><a href="{{ path('app_login') }}">Connexion</a></li>
                             <li><a href="{{ path('app_register') }}">Inscription</a></li>
-                        {% endif %}
+                    {% endif %}
 
                     </ul>
                 </div>

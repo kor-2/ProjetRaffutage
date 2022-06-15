@@ -37,10 +37,12 @@ class CommandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            
+
 
             // crée une facture
             $facture = new Facture();
-            $jour = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+            $jour = $form->get('prestation')->getData()->getFin();
             $facture->setDateFacturation($jour);
             $facture->setPaye(false);
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Facture;
 use App\Entity\Commande;
 use App\Repository\FactureRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,6 +28,8 @@ class MonCompteController extends AbstractController
         return $this->render('mon_compte/index.html.twig', [
             'titre' => ' - Mon compte',
             'maintenant' => $mtn,
+            'test' => $facture,
+            'factures' => $facture
         ]);
     }
 
@@ -41,14 +44,14 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/mon-compte/supp-commande/{id}", name="app_supp_commande")
+     * @Route("/mon-compte/supp-commande/{id}", name="app_supp_facture")
      */
-    public function suppCommande(ManagerRegistry $doctrine, Commande $cmd): Response
+    public function suppCommande(ManagerRegistry $doctrine, Facture $facture): Response
     {
 
         // pas bon
         $entityManager = $doctrine->getManager();
-        $entityManager->remove($cmd);
+        $entityManager->remove($facture);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_mon_compte');

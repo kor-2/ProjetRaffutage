@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\CommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use App\Repository\CommandeRepository;
 
 /**
  * @ORM\Entity(repositoryClass=CommandeRepository::class)
@@ -36,6 +37,7 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity=Facture::class, inversedBy="commande")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $facture;
 

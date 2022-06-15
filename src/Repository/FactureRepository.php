@@ -51,13 +51,23 @@ class FactureRepository extends ServiceEntityRepository
     
     public function getFactureByUserId($user)
     {
-        return $this->createQueryBuilder('f')
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        $qb = $sub;
+        $qb->select('f')
+            ->from('App\Entity\Facture', 'f')
             ->leftJoin('f.commande', 'co')
-            ->where('co.user != :user')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->where('co.user = :user');
+
+        $sub = $em->createQueryBuilder();
+        $sub->select('fa')
+            ->from('App\Entity\Facture', 'fa')
+            ->where($sub->expr()->In('fa.id', $qb->getDQL()))
+            ->setParameter('user', $user);
+        $query = $sub->getQuery();
+
+        return $query->getResult();
     }
     /*
          select('f')
