@@ -72,13 +72,12 @@ class PrestationRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
         $sub->select('pr')
             ->from('App\Entity\Prestation', 'pr');
-
+            
         if ($libre) {
             $sub->where($sub->expr()->notIn('pr.id', $qb->getDQL()));
         }else{
             $sub->where($sub->expr()->in('pr.id', $qb->getDQL()));
         }
-
         if ($tous) {
             $sub->andWhere('pr.debut > :today')
             ->setParameter('today', $d);

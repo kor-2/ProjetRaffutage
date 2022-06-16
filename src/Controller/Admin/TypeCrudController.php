@@ -29,11 +29,7 @@ class TypeCrudController extends AbstractCrudController
         ];
     }
 
-    public function configureActions(Actions $actions): Actions
-    {
-        return $actions
-        ->disable(Action::NEW);
-    }
+
 
     /*
     public function configureFields(string $pageName): iterable

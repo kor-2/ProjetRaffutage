@@ -18,6 +18,7 @@ class CommandeType extends AbstractType
     {
         $builder
         ->add('nb_couteau', NumberType::class)
+        
         ->add('prestation', EntityType::class, [
             'class' => Prestation::class,
             'placeholder' => 'Choisir un créneau !',

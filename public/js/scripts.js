@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     events: creneauLibre,
     locale: 'fr',
-    ////////////////////////// marche pas : (
     nowIndicator: true,
     weekNumbers: true,
       

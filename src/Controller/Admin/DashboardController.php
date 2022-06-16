@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Facture;
 use App\Entity\Prestation;
+use App\Repository\FactureRepository;
 use App\Repository\PrestationRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,6 +65,26 @@ class DashboardController extends AbstractDashboardController
     }
 
     ////////////////////////////////////
+    // Page des modif des commandes 
+    ////////////////////////////////////
+
+    /**
+     * @Route("/admin/facture", name="admin_facture")
+     */
+    public function facture(FactureRepository $facRepo): Response
+    {
+
+        $factures = $facRepo->findBy([],["date_facturation" => "DESC"]);
+
+        dump($factures);
+        return $this->render('admin/facture.html.twig',[
+            "factures" => $factures
+        ]);
+    }
+
+
+
+    ////////////////////////////////////
     // configuration du dashboard
     ////////////////////////////////////
     public function configureDashboard(): Dashboard
@@ -83,9 +105,9 @@ class DashboardController extends AbstractDashboardController
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', Type::class),
         MenuItem::section('Comptabilité'),
+        MenuItem::linkToRoute('Factures','fas fa-file-invoice-dollar','admin_facture'),
         ];
     }
-
     /////////////////////////////////////////
     // ajout de balise dans la balise head
     //////////////////////////////////////////

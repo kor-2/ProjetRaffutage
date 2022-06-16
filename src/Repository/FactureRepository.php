@@ -69,12 +69,6 @@ class FactureRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
-    /*
-         select('f')
-            ->from('App\Entity\Facture', 'f')
-            ->leftJoin('f.commandes', 'co')
-            ->where('co.user != :id');
-     */
     
 
     // /**
