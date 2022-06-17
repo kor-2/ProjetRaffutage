@@ -19,21 +19,15 @@ class MonCompteController extends AbstractController
     /**
      * @Route("/mon-compte", name="app_mon_compte")
      */
-    public function index(FactureRepository $facRepo): Response
+    public function index(): Response
     {
         $mtn = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
         $user =$this->getUser();
-        $facture = $facRepo->getFactureByUserId($user);
-
-        // test 
-        $test = $facture;
-        dump($test);
 
         return $this->render('mon_compte/index.html.twig', [
             'titre' => ' - Mon compte',
             'maintenant' => $mtn,
-            'factures' => $facture
         ]);
     }
 
@@ -64,18 +58,10 @@ class MonCompteController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/mon-compte/supp-commande/{id}", name="app_supp_facture")
-     */
-    public function suppCommande(ManagerRegistry $doctrine, Facture $facture): Response
-    {
 
-        // pas bon
-        $entityManager = $doctrine->getManager();
-        $entityManager->remove($facture);
-        $entityManager->flush();
 
-        return $this->redirectToRoute('app_mon_compte');
-    }
+
+
+
 
 }

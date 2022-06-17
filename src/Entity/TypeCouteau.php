@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeRepository;
+use App\Repository\TypeCouteauRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TypeRepository::class)
+ * @ORM\Entity(repositoryClass=TypeCouteauRepository::class)
  */
-class Type
+class TypeCouteau
 {
     /**
      * @ORM\Id
@@ -20,17 +20,17 @@ class Type
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $cout;
+    private $tarif;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $description;
 
@@ -40,13 +40,13 @@ class Type
     private $active;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="type")
+     * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="typeCouteau")
      */
-    private $commandes;
+    private $typages;
 
     public function __construct()
     {
-        $this->commandes = new ArrayCollection();
+        $this->typages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,14 +66,14 @@ class Type
         return $this;
     }
 
-    public function getCout(): ?int
+    public function getTarif(): ?int
     {
-        return $this->cout;
+        return $this->tarif;
     }
 
-    public function setCout(int $cout): self
+    public function setTarif(int $tarif): self
     {
-        $this->cout = $cout;
+        $this->tarif = $tarif;
 
         return $this;
     }
@@ -83,7 +83,7 @@ class Type
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -103,32 +103,36 @@ class Type
     }
 
     /**
-     * @return Collection<int, Commande>
+     * @return Collection<int, Typage>
      */
-    public function getCommandes(): Collection
+    public function getTypages(): Collection
     {
-        return $this->commandes;
+        return $this->typages;
     }
 
-    public function addCommande(Commande $commande): self
+    public function addTypage(Typage $typage): self
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setType($this);
+        if (!$this->typages->contains($typage)) {
+            $this->typages[] = $typage;
+            $typage->setTypeCouteau($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commande $commande): self
+    public function removeTypage(Typage $typage): self
     {
-        if ($this->commandes->removeElement($commande)) {
+        if ($this->typages->removeElement($typage)) {
             // set the owning side to null (unless already changed)
-            if ($commande->getType() === $this) {
-                $commande->setType(null);
+            if ($typage->getTypeCouteau() === $this) {
+                $typage->setTypeCouteau(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(){
+        return $this->getNom();
     }
 }

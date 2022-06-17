@@ -2,10 +2,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Type;
 use App\Entity\User;
 use App\Entity\Facture;
 use App\Entity\Prestation;
+use App\Entity\TypeCouteau;
 use App\Repository\FactureRepository;
 use App\Repository\PrestationRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,13 +64,13 @@ class DashboardController extends AbstractDashboardController
         ]);
     }
 
-    ////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     // Page des modif des commandes 
-    ////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * @Route("/admin/facture", name="admin_facture")
-     */
+     *//*
     public function facture(FactureRepository $facRepo): Response
     {
 
@@ -80,8 +80,7 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/facture.html.twig',[
             "factures" => $factures
         ]);
-    }
-
+    }*/
 
 
     ////////////////////////////////////
@@ -103,9 +102,9 @@ class DashboardController extends AbstractDashboardController
         MenuItem::linkToRoute('Planning', 'fas fa-calendar', 'admin_planning'),
         MenuItem::section('Gestion'),
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
-        MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', Type::class),
+        MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', TypeCouteau::class),
         MenuItem::section('Comptabilité'),
-        MenuItem::linkToRoute('Factures','fas fa-file-invoice-dollar','admin_facture'),
+        //MenuItem::linkToRoute('Factures','fas fa-file-invoice-dollar','admin_facture'),
         ];
     }
     /////////////////////////////////////////

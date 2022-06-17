@@ -5,8 +5,44 @@
 {% block body %}
 
 <h2>Prise de rendez-vous</h2>
-{{ form(rdvForm) }}
+{{ form_start(rdvForm) }}
+    {{ form_row(rdvForm.prestation) }}
 
+
+    <div class="form-group ">
+
+        <div class="col-form-label col-sm-2">&nbsp;</div>
+
+        <div id="programme-fields-list" class="col-sm-10 remove-collection-widget" data-prototype="{{ form_widget(rdvForm.typages.vars.prototype)|e }}" data-commande="{{commandeId}}" data-widget-tags="{{ '<p></p>'|e }}" data-widget-counter="{{ rdvForm.typages|length }}">
+
+            {% for typagesField in rdvForm.typages %}
+
+                <p>
+
+                    {{ form_errors(typagesField) }}
+
+                    {{ form_widget(typagesField, {'attr': {'class': 'borders'}}) }}
+
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="form-group row flex-action">
+
+        <button type="button" class="add-another-collection-widget button" data-list-selector="#programme-fields-list">Ajouter un nouveau type de couteau</button>
+
+    </div>
+
+    {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
+
+    {% do rdvForm.typages.setRendered %}
+    {{ form_row(rdvForm.Valider) }}
+
+{{ form_end(rdvForm) }}
     
 
 {% endblock %}

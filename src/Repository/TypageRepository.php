@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Type;
+use App\Entity\Typage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Type>
+ * @extends ServiceEntityRepository<Typage>
  *
- * @method Type|null find($id, $lockMode = null, $lockVersion = null)
- * @method Type|null findOneBy(array $criteria, array $orderBy = null)
- * @method Type[]    findAll()
- * @method Type[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Typage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Typage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Typage[]    findAll()
+ * @method Typage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypeRepository extends ServiceEntityRepository
+class TypageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Type::class);
+        parent::__construct($registry, Typage::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Type $entity, bool $flush = false): void
+    public function add(Typage $entity, bool $flush = false): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class TypeRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Type $entity, bool $flush = false): void
+    public function remove(Typage $entity, bool $flush = false): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class TypeRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Type[] Returns an array of Type objects
+//     * @return Typage[] Returns an array of Typage objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -62,7 +62,7 @@ class TypeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Type
+//    public function findOneBySomeField($value): ?Typage
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

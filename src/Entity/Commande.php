@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use App\Repository\CommandeRepository;
@@ -19,11 +21,6 @@ class Commande
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $nb_couteau;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -36,31 +33,33 @@ class Commande
     private $prestation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Facture::class, inversedBy="commande")
-     * @JoinColumn(onDelete="CASCADE")
+     * @ORM\Column(type="date")
      */
-    private $facture;
+    private $date_facturation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="commandes")
+     * @ORM\Column(type="boolean")
      */
-    private $type;
+    private $paye;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lien_pdf;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="commande")
+     */
+    private $typages;
+
+    public function __construct()
+    {
+        $this->typages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNbCouteau(): ?int
-    {
-        return $this->nb_couteau;
-    }
-
-    public function setNbCouteau(int $nb_couteau): self
-    {
-        $this->nb_couteau = $nb_couteau;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -87,26 +86,68 @@ class Commande
         return $this;
     }
 
-    public function getFacture(): ?Facture
+    public function getDateFacturation(): ?\DateTimeInterface
     {
-        return $this->facture;
+        return $this->date_facturation;
     }
 
-    public function setFacture(?Facture $facture): self
+    public function setDateFacturation(\DateTimeInterface $date_facturation): self
     {
-        $this->facture = $facture;
+        $this->date_facturation = $date_facturation;
 
         return $this;
     }
 
-    public function getType(): ?Type
+    public function getPaye(): ?bool
     {
-        return $this->type;
+        return $this->paye;
     }
 
-    public function setType(?Type $type): self
+    public function setPaye(bool $paye): self
     {
-        $this->type = $type;
+        $this->paye = $paye;
+
+        return $this;
+    }
+
+    public function getLienPdf(): ?string
+    {
+        return $this->lien_pdf;
+    }
+
+    public function setLienPdf(string $lien_pdf): self
+    {
+        $this->lien_pdf = $lien_pdf;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Typage>
+     */
+    public function getTypages(): Collection
+    {
+        return $this->typages;
+    }
+
+    public function addTypage(Typage $typage): self
+    {
+        if (!$this->typages->contains($typage)) {
+            $this->typages[] = $typage;
+            $typage->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTypage(Typage $typage): self
+    {
+        if ($this->typages->removeElement($typage)) {
+            // set the owning side to null (unless already changed)
+            if ($typage->getCommande() === $this) {
+                $typage->setCommande(null);
+            }
+        }
 
         return $this;
     }
