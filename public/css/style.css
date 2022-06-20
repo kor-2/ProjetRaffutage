@@ -43,6 +43,11 @@ h3{
     text-align: center;
 }
 
+.centerDiv{
+    margin: 0 auto;
+    width: 80%;
+}
+
 
 /*
 * *************************Message erreur

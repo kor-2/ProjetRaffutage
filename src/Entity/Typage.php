@@ -23,7 +23,7 @@ class Typage
     private $nb_couteau;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="typages")
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="typages",cascade={"persist"})
      */
     private $commande;
 

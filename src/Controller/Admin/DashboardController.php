@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Facture;
+use App\Entity\Commande;
 use App\Entity\Prestation;
 use App\Entity\TypeCouteau;
 use App\Repository\FactureRepository;
@@ -104,6 +105,7 @@ class DashboardController extends AbstractDashboardController
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', TypeCouteau::class),
         MenuItem::section('Comptabilité'),
+        MenuItem::linkToCrud('Commandes', 'fas fa-file-invoice-dollar', Commande::class),
         //MenuItem::linkToRoute('Factures','fas fa-file-invoice-dollar','admin_facture'),
         ];
     }
@@ -123,7 +125,7 @@ class DashboardController extends AbstractDashboardController
         // js pour CalendarBundle
         ->addHtmlContentToHead('<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.js" integrity="sha256-bFpArdcNM5XcSM+mBAUSDAt4YmEIeSAdUASB2rrSli4=" crossorigin="anonymous"></script>')
         ->addHtmlContentToHead('<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js" integrity="sha256-Mu1bnaszjpLPWI+/bY7jB6JMtHj5nn9zIAsXMuaNxdk=" crossorigin="anonymous"></script>')
-        ->addJsFile('js/scripts.js')
+        ->addJsFile('js/scriptsAdmin.js')
 
         ;
     }

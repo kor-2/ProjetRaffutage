@@ -43,12 +43,12 @@ class Commande
     private $paye;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lien_pdf;
 
     /**
-     * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="commande")
+     * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="commande" ,cascade={"persist"})
      */
     private $typages;
 
