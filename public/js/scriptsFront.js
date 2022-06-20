@@ -27,12 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
       nowIndicator: true,
       weekNumbers: true,
       businessHours: {
-        // de lundi a vendredi dimanche = 0
-        daysOfWeek: [ 1, 2, 3, 4, 5 ],
+
         startTime: '09:00', 
         endTime: '18:00', 
       },
-      hiddenDays:[ 0],
+      hiddenDays:[0],
+
+      eventClick: function(presta){
+        console.log("oui")
+    },
+
         
       })
     calendar.render();

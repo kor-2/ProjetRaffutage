@@ -2,15 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Facture;
 use App\Entity\Commande;
 use App\Form\CommandeType;
-use App\Repository\FactureRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\PrestationRepository;
 
@@ -25,6 +22,9 @@ class CommandeController extends AbstractController
         $test ="oui";
         dump($test);
         ///////////////////////////////////////////////////////
+        // table pour ful calendar
+        //////////////////////////////////////////////////////
+
         // prend les créneaux libre/
         $plans = $presRepo->getCreneau(false, false, true);
         $rdvLibre = [];
@@ -51,6 +51,10 @@ class CommandeController extends AbstractController
         $data = json_encode($rdvLibre);
         /////////////////////////////////////////////////
 
+
+        ////////////////////////////////////////////////////////
+        // envoi du formulaire
+        /////////////////////////////////////////////////////////
         if (!$commande) {
 
             $commande = new Commande();
@@ -65,7 +69,7 @@ class CommandeController extends AbstractController
             $user =$this->getUser();
 
             $commande = $form->getData();
-            $commande->setDateFacturation($mtn);
+            //$commande->setDateFacturation($mtn);
             $commande->setPaye(false);
             $commande->setUser($user);
 
@@ -75,6 +79,7 @@ class CommandeController extends AbstractController
     
             return $this->redirectToRoute('app_home');
         }
+        /////////////////////////////////////////////////////
 
         return $this->render('commande/index.html.twig', [
             'titre' => ' - Prendre rendez-vous',
