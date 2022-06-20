@@ -46,6 +46,8 @@ class CommandeController extends AbstractController
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
                 'backgroundColor' => '#808080',
+                'code' => 'INDISPO'
+                
             ];
         }
         $data = json_encode($rdvLibre);
@@ -69,7 +71,7 @@ class CommandeController extends AbstractController
             $user =$this->getUser();
 
             $commande = $form->getData();
-            //$commande->setDateFacturation($mtn);
+            $commande->setDateFacturation($mtn);
             $commande->setPaye(false);
             $commande->setUser($user);
 

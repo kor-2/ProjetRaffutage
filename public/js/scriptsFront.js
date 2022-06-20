@@ -27,14 +27,21 @@ document.addEventListener('DOMContentLoaded', function() {
       nowIndicator: true,
       weekNumbers: true,
       businessHours: {
-
         startTime: '09:00', 
         endTime: '18:00', 
       },
       hiddenDays:[0],
 
       eventClick: function(presta){
-        console.log("oui")
+        
+        var valuePresta = presta.event;
+        if (!valuePresta.extendedProps.code) {
+          let input = document.getElementById("rdvJs")
+          var valuePresta = valuePresta.id
+          input.value = valuePresta
+        }else{
+          alert("Le créneau est indisponible")
+        }
     },
 
         
