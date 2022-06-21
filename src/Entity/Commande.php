@@ -22,7 +22,6 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commandes")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
