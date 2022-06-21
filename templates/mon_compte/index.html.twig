@@ -83,6 +83,30 @@
                     </td>
                 </tr>
                 {% endfor %} #}
+                {% for commande in app.user.Commandes %}
+                <tr class="centerText">
+                    <td>{{ commande.DateFacturation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</td> 
+                    <td>{{ commande.getTotal }} €</td>
+                    <td>
+                        {% if commande.DateFacturation > maintenant %}
+                        <p>Disponible après rendez-vous !</p>
+                        {% else %}
+                        
+                        
+                        <a href="#" class="boutonGris"> <i class="fa-solid fa-file-arrow-down"></i> Télécharger</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if commande.DateFacturation < maintenant %}
+                        <p><i class="fa-solid fa-check"></i></p>
+                        {% else %}
+                        
+                        <a href="" class="supp"><i class="fa-solid fa-xmark"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                
+            {% endfor %}
             </tbody>
         </table>
 

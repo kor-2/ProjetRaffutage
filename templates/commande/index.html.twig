@@ -9,9 +9,9 @@
 
     <div class="centerDiv">
         <div id="calendar"></div>
+        <input name="presta" type="hidden" id="rdvJs" data-choice="{{ data }}"></input>
     </div>
-    <input type="hidden" id="rdvJs" data-choice="{{ data }}"></input>
-    {{ form_row(rdvForm.prestation) }}
+    {# {{ form_row(rdvForm.prestation) }} #}
     <ul id="gestionDurees" data-prototype= "{{ form_row(rdvForm.typages.vars.prototype)|e('html_attr') }}">
         {% for atelier in rdvForm.typages %}
             <li>{{ form_row(atelier) }}</li>

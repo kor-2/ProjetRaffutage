@@ -151,4 +151,21 @@ class Commande
 
         return $this;
     }
+
+    /////////////////////////////////////////////////////
+    // Nouvelle méthode
+    /////////////////////////////////////////////////////
+
+    // avoir le total de la commande
+    public function getTotal(){
+
+        $types = $this->getTypages();
+
+        $total = 0;
+        foreach ($types as $type) {
+            $total = $total + $type->getTotalType();
+        }
+
+        return $total;
+    }
 }

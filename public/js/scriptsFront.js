@@ -37,8 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
         var valuePresta = presta.event;
         if (!valuePresta.extendedProps.code) {
           let input = document.getElementById("rdvJs")
-          var valuePresta = valuePresta.id
-          input.value = valuePresta
+
+          //var valeur = valuePresta.extendedProps.phpObj
+          var valeur = valuePresta.id
+          input.value = valeur
+          console.log(valeur)
+          
         }else{
           alert("Le créneau est indisponible")
         }

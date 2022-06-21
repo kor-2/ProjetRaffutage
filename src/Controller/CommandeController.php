@@ -18,9 +18,6 @@ class CommandeController extends AbstractController
      */
     public function index(PrestationRepository $presRepo, ManagerRegistry $doctrine ,Request $request, Commande $commande = null): Response
     {
-        // test
-        $test ="oui";
-        dump($test);
         ///////////////////////////////////////////////////////
         // table pour ful calendar
         //////////////////////////////////////////////////////
@@ -71,10 +68,15 @@ class CommandeController extends AbstractController
             $user =$this->getUser();
 
             $commande = $form->getData();
+
+
+            $idPresta = $request->request->get('presta'); // recupere l'id de la prrestation 
+            $prestaObj = $presRepo->findOneBy(['id'=> $idPresta]);// cherche la prestation avec l'id trouver si dessus           
+            
+            $commande->setPrestation($prestaObj);
             $commande->setDateFacturation($mtn);
             $commande->setPaye(false);
             $commande->setUser($user);
-
 
             $entityManager->persist($commande);
             $entityManager->flush();

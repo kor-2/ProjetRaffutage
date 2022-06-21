@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Entity\Facture;
 use App\Entity\Commande;
-use App\Repository\FactureRepository;
+use App\Repository\TypageRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,8 +22,8 @@ class MonCompteController extends AbstractController
     public function index(): Response
     {
         $mtn = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-
         $user =$this->getUser();
+
 
         return $this->render('mon_compte/index.html.twig', [
             'titre' => ' - Mon compte',

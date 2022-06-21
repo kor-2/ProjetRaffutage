@@ -72,4 +72,16 @@ class Typage
 
         return $this;
     }
+    /////////////////////////////////////////////////////
+    // Nouvelle méthode
+    /////////////////////////////////////////////////////
+
+
+    // avoir le total de chaque type de couteau
+    public function getTotalType(){
+
+        $unite = $this->getTypeCouteau()->getTarif();
+
+        return $this->getNbCouteau() * $unite;
+    }
 }
