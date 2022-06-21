@@ -52,37 +52,6 @@
                 </tr>
             </thead>
             <tbody>
-{#
-                {% for facture in factures %}
-                <tr class="centerText">
-                    <td>{{ facture.DateFacturation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</td>
-                    <td>10€</td>
-
-                    <td>
-
-                        {% if facture.DateFacturation > maintenant %}
-                        <p>Disponible après rendez-vous !</p>
-                        {% else %}
-                        
-                        
-                        <a href="#" class="boutonGris"> <i class="fa-solid fa-file-arrow-down"></i> Télécharger</a>
-                        {% endif %}
-
-                    
-                    </td>
-                    <td class="centerText">
-
-                        {% if facture.DateFacturation < maintenant %}
-                        <p><i class="fa-solid fa-check"></i></p>
-                        {% else %}
-                        
-                        <a href="" class="supp"><i class="fa-solid fa-xmark"></i></a>
-                        {% endif %}
-                            
-
-                    </td>
-                </tr>
-                {% endfor %} #}
                 {% for commande in app.user.Commandes %}
                 <tr class="centerText">
                     <td>{{ commande.DateFacturation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</td> 
@@ -101,7 +70,7 @@
                         <p><i class="fa-solid fa-check"></i></p>
                         {% else %}
                         
-                        <a href="" class="supp"><i class="fa-solid fa-xmark"></i></a>
+                        <a href="{{ path('app_supp_cmd', {'id' : commande.id }) }}" class="supp"><i class="fa-solid fa-xmark"></i></a>
                         {% endif %}
                     </td>
                 </tr>

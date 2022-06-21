@@ -6,6 +6,34 @@
 
 {% block content %}
 
-<h1>Factures</h1>
+<div>
+    <h1>Factures</h1>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date de la prestation</th>
+                <th>Nombre de couteau</th>
+                <th>Total à payer</th>
+                <th>Confirmer</th>
+                <th>PDF</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.user }}</td>
+                <td>{{ commande.DateFacturation|date("d m Y") }}</td>
+                <td>{{ commande.getCouteaux }}</td>
+                <td>{{ commande.getTotal }} €</td>
+                <td>yes</td>
+                <td>yes</td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    
 {% endblock %}

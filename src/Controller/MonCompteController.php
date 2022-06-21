@@ -57,11 +57,16 @@ class MonCompteController extends AbstractController
             
         ]);
     }
-
-
-
-
-
-
+    /**
+     * @Route("/mon-compte/supp/{id}", name="app_supp_cmd")
+     */
+    public function suppCommande(ManagerRegistry $doctrine , Commande $commande): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($commande);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('app_mon_compte');
+    }
 
 }

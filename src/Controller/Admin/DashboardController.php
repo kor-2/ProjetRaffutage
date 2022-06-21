@@ -8,6 +8,7 @@ use App\Entity\Commande;
 use App\Entity\Prestation;
 use App\Entity\TypeCouteau;
 use App\Repository\FactureRepository;
+use App\Repository\CommandeRepository;
 use App\Repository\PrestationRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,7 +49,7 @@ class DashboardController extends AbstractDashboardController
             ];
         }
         // prend les créneaux pris
-        $pris = $presRepo->getCreneau(false, false, false);
+        $pris = $presRepo->getCreneau(false, true, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
                 'title' => 'Créneau pris',
@@ -71,17 +72,16 @@ class DashboardController extends AbstractDashboardController
 
     /**
      * @Route("/admin/facture", name="admin_facture")
-     *//*
-    public function facture(FactureRepository $facRepo): Response
+     */
+    public function facture(CommandeRepository $cmdRepo): Response
     {
 
-        $factures = $facRepo->findBy([],["date_facturation" => "DESC"]);
-
-        dump($factures);
+        $commandes = $cmdRepo->findBy([],['date_facturation' => 'DESC']);
+        
         return $this->render('admin/facture.html.twig',[
-            "factures" => $factures
+           'commandes' => $commandes
         ]);
-    }*/
+    }
 
 
     ////////////////////////////////////
@@ -105,8 +105,8 @@ class DashboardController extends AbstractDashboardController
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', TypeCouteau::class),
         MenuItem::section('Comptabilité'),
-        MenuItem::linkToCrud('Commandes', 'fas fa-file-invoice-dollar', Commande::class),
-        //MenuItem::linkToRoute('Factures','fas fa-file-invoice-dollar','admin_facture'),
+        MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', Commande::class),
+        MenuItem::linkToRoute('Factures','fas fa-file-invoice-dollar','admin_facture'),
         ];
     }
     /////////////////////////////////////////

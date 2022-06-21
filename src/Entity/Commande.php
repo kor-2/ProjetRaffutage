@@ -38,19 +38,14 @@ class Commande
     private $date_facturation;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $paye;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lien_pdf;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="commande" ,cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="commande" ,cascade={"persist"} ,orphanRemoval=true)
      */
     private $typages;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Facture::class, inversedBy="commande", cascade={"persist", "remove"})
+     */
+    private $facture;
 
     public function __construct()
     {
@@ -167,5 +162,27 @@ class Commande
         }
 
         return $total;
+    }
+    // avoir le total de couteau 
+
+    public function getCouteaux(){
+        $types = $this->getTypages();
+        $total = 0;
+        foreach ($types as $type) {
+            $total = $total + $type->getNbCouteau();
+        }
+        return $total;
+    }
+
+    public function getFacture(): ?Facture
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(?Facture $facture): self
+    {
+        $this->facture = $facture;
+
+        return $this;
     }
 }

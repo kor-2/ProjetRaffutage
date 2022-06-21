@@ -74,8 +74,7 @@ class CommandeController extends AbstractController
             $prestaObj = $presRepo->findOneBy(['id'=> $idPresta]);// cherche la prestation avec l'id trouver si dessus           
             
             $commande->setPrestation($prestaObj);
-            $commande->setDateFacturation($mtn);
-            $commande->setPaye(false);
+            $commande->setDateFacturation($prestaObj->getDebut());
             $commande->setUser($user);
 
             $entityManager->persist($commande);

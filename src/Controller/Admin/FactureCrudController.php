@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Commande;
+use App\Entity\Facture;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class CommandeCrudController extends AbstractCrudController
+class FactureCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Commande::class;
+        return Facture::class;
     }
 
     /*
