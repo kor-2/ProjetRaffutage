@@ -55,7 +55,7 @@ class PrestationRepository extends ServiceEntityRepository
     /**
      * @return Prestation[] Returns an array of Prestation objects
      */
-    public function getCreneau($sortieQuery = false, $tous = false , $libre = true)
+    public function getCreneau($getResult = true, $libre = true, $passe = false)
     {
         // prend la date d'aujourd'hui
         $d = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
@@ -72,19 +72,30 @@ class PrestationRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
         $sub->select('pr')
             ->from('App\Entity\Prestation', 'pr');
-            
-        if ($libre) {
-            $sub->where($sub->expr()->notIn('pr.id', $qb->getDQL()));
-        }else{
-            $sub->where($sub->expr()->in('pr.id', $qb->getDQL()));
+        
+        switch ($libre) {
+            case true:
+                $sub->where($sub->expr()->notIn('pr.id', $qb->getDQL()));
+                break;
+            case false:
+                $sub->where($sub->expr()->in('pr.id', $qb->getDQL()));
+                break;
         }
-        if ($tous) {
-            $sub->andWhere('pr.debut > :today')
-            ->setParameter('today', $d);
+
+        switch ($passe) {
+            case true:
+                $sub->andWhere('pr.debut < :today')
+                ->setParameter('today', $d);
+                break;
+            case false:
+                $sub->andWhere('pr.debut > :today')
+                ->setParameter('today', $d);
+                break;
         }
+        
         $sub->setParameter('id', 'p.id')
             ->orderby('pr.debut');
-        if (!$sortieQuery) {
+        if ($getResult) {
             $query = $sub->getQuery();
 
             return $query->getResult();

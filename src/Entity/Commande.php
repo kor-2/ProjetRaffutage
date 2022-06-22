@@ -37,14 +37,16 @@ class Commande
     private $date_facturation;
 
     /**
+     * @ORM\OneToOne(targetEntity=Facture::class, inversedBy="commande", cascade={"persist", "remove"})
+     */
+    private $facture;
+    
+    /**
      * @ORM\OneToMany(targetEntity=Typage::class, mappedBy="commande" ,cascade={"persist"} ,orphanRemoval=true)
      */
     private $typages;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Facture::class, inversedBy="commande", cascade={"persist", "remove"})
-     */
-    private $facture;
+   
 
     public function __construct()
     {
@@ -104,14 +106,14 @@ class Commande
         return $this;
     }
 
-    public function getLienPdf(): ?string
+    public function getFacture(): ?Facture
     {
-        return $this->lien_pdf;
+        return $this->facture;
     }
 
-    public function setLienPdf(string $lien_pdf): self
+    public function setFacture(?Facture $facture): self
     {
-        $this->lien_pdf = $lien_pdf;
+        $this->facture = $facture;
 
         return $this;
     }
@@ -145,9 +147,10 @@ class Commande
 
         return $this;
     }
-
+    
+    
     /////////////////////////////////////////////////////
-    // Nouvelle méthode
+    // Nouvelles méthodes
     /////////////////////////////////////////////////////
 
     // avoir le total de la commande
@@ -173,15 +176,6 @@ class Commande
         return $total;
     }
 
-    public function getFacture(): ?Facture
-    {
-        return $this->facture;
-    }
 
-    public function setFacture(?Facture $facture): self
-    {
-        $this->facture = $facture;
-
-        return $this;
-    }
 }
+    

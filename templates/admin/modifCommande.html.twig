@@ -1,0 +1,25 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+{% block head %}
+    
+{% endblock %}
+
+
+{% block content %}
+{# 
+peut etre pas besoin du CommandeAdminType et juste reprendre le Commandetype normal    
+pas possible de modifier les commandes
+#}
+<div>
+    <h1>Modification factures</h1>
+
+    {{ form_start(formCmd) }}
+
+        <ul id="gestionDurees" data-prototype= "{{ form_row(formCmd.typages.vars.prototype)|e('html_attr') }}">
+            {% for atelier in formCmd.typages %}
+                <li>{{ form_row(atelier) }}</li>
+            {% endfor %}
+        </ul>
+    {{ form_end(formCmd) }}
+</div>
+    
+{% endblock %}
