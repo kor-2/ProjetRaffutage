@@ -7,10 +7,12 @@ use App\Form\UserType;
 use App\Entity\Facture;
 use App\Entity\Commande;
 use App\Repository\TypageRepository;
+use App\Repository\CommandeRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -58,7 +60,7 @@ class MonCompteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/mon-compte/supp/{id}", name="app_supp_cmd")
+     * @Route("/mon-compte/supp_commande/{id}", name="app_supp_cmd")
      */
     public function suppCommande(ManagerRegistry $doctrine , Commande $commande): Response
     {
@@ -68,5 +70,36 @@ class MonCompteController extends AbstractController
         
         return $this->redirectToRoute('app_mon_compte');
     }
+
+     /**
+     * @Route("/mon-compte/supp_compte", name="app_supp_compte")
+     */
+    public function suppCompte(ManagerRegistry $doctrine, CommandeRepository $cmdRepo): Response
+    {
+        $user = $this->getUser();
+
+        $entityManager = $doctrine->getManager();
+        
+        // suppression du user dans les commandes passé
+        $cmdPasse = $cmdRepo->findByUser($user->getId());
+        foreach ($cmdPasse as $cmdPass) {
+            $user->removeCommande($cmdPass);
+        }
+
+        // suppression des commande future
+        $cmdFuture = $cmdRepo->findByUser($user->getId(), false);
+        foreach ($cmdFuture as $cmdFut) {
+            $entityManager->remove($cmdFut);
+        }
+        // supprime la session utilisateur
+        $session = new Session();
+        $session->invalidate();
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('app_home');
+    }
+
 
 }

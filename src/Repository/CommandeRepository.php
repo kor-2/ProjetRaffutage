@@ -47,6 +47,35 @@ class CommandeRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @return Commande[] Returns an array of Commande objects
+     */
+    
+    public function findByUser($userId, $passe = true)
+    {
+        $date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder();
+        
+        $query->select('c')
+            ->from('App\Entity\Commande', 'c')
+            ->andWhere('c.user = :user');
+            if($passe) {
+                $query->andWhere('c.date_facturation < :date');
+            }else {
+                $query->andWhere('c.date_facturation > :date');
+         }
+        $query->setParameter('user', $userId)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+        $result = $query->getQuery();
+
+        return $result->getResult();
+    }
+    
+
 
     // /**
     //  * @return Commande[] Returns an array of Commande objects

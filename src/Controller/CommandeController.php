@@ -24,7 +24,7 @@ class CommandeController extends AbstractController
         // table pour ful calendar
         //////////////////////////////////////////////////////
 
-        // prend les créneaux libre/
+        // prend les créneaux libre
         $plans = $presRepo->getCreneau(true, true, false);
         $rdvLibre = [];
         foreach ($plans as $plan) {
@@ -78,7 +78,6 @@ class CommandeController extends AbstractController
         $data = json_encode($rdvLibre);
         /////////////////////////////////////////////////
 
-
         ////////////////////////////////////////////////////////
         // envoi du formulaire
         /////////////////////////////////////////////////////////
@@ -111,12 +110,28 @@ class CommandeController extends AbstractController
             $facture->setNumero($numCmd);
             
             $commande = $form->getData();
+
+            $typages = $commande->getTypages();
+
+
+            $details =[]; 
+            foreach ($typages as $type ) {
+                $details[] = [
+                    'type' => $type->getTypeCouteau()->getNom(),
+                    'tarif' => $type->getTypeCouteau()->getTarif(),
+                    'nbCouteau' => $type->getNbCouteau(),
+                ];
+            }
+            
+
             
             $commande->setPrestation($prestaObj);
+            $commande->setDetails($details);
             $commande->setDateFacturation($prestaObj->getDebut());
             $commande->setUser($user);
             $commande->setFacture($facture);
 
+            dd($commande);
             $entityManager->persist($facture);
             $entityManager->persist($commande);
             $entityManager->flush();

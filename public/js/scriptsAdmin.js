@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
   let calendarEl = document.getElementById('calendar');
   let calendar = new FullCalendar.Calendar(calendarEl, {
+    // configuration de l'affichage de full calendar
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     nowIndicator: true,
     weekNumbers: true,
     businessHours: {
+      daysOfWeek: [ 1, 2, 3, 4, 5, 6 ],
       startTime: '09:00', 
       endTime: '18:00', 
     },

@@ -12,6 +12,7 @@
     <table class="table">
         <thead>
             <tr class="text-center">
+                <th>Numéro de facture</th>
                 <th>Date de la prestation</th>
                 <th>Nombre de couteau</th>
                 <th>Total à payer</th>
@@ -22,6 +23,7 @@
         <tbody>
             {% for commande in commandes %}
             <tr class="text-center">
+                <td>{{ commande.facture }}</td>
                 <td>{{ commande.DateFacturation|date("d m Y") }}</td>
                 <td>{{ commande.getCouteaux }}</td>
                 <td>{{ commande.getTotal }} €</td>

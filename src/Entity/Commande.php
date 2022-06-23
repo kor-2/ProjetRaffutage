@@ -46,6 +46,11 @@ class Commande
      */
     private $typages;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $details = [];
+
    
 
     public function __construct()
@@ -147,6 +152,7 @@ class Commande
 
         return $this;
     }
+
     
     
     /////////////////////////////////////////////////////
@@ -174,6 +180,18 @@ class Commande
             $total = $total + $type->getNbCouteau();
         }
         return $total;
+    }
+
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    public function setDetails(array $details): self
+    {
+        $this->details = $details;
+
+        return $this;
     }
 
 

@@ -99,4 +99,9 @@ class Facture
 
         return $this;
     }
+    
+    public function __toString(){
+        return $this->getNumero();
+    }
+    
 }

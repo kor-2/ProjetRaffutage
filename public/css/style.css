@@ -103,6 +103,7 @@ h3{
     background-color: #dc3545;
     border-radius: 3px;
     color: white;
+    text-decoration: none;
 }
 .supp:hover{
     background-color: #ff142c;
