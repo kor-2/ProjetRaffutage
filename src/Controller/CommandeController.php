@@ -114,29 +114,27 @@ class CommandeController extends AbstractController
             $typages = $commande->getTypages();
 
 
-            $details =[]; 
+            $details = []; 
             foreach ($typages as $type ) {
                 $details[] = [
                     'type' => $type->getTypeCouteau()->getNom(),
                     'tarif' => $type->getTypeCouteau()->getTarif(),
                     'nbCouteau' => $type->getNbCouteau(),
+                    'remise' => 0
                 ];
             }
-            
 
-            
-            $commande->setPrestation($prestaObj);
             $commande->setDetails($details);
+            $commande->setPrestation($prestaObj);
             $commande->setDateFacturation($prestaObj->getDebut());
             $commande->setUser($user);
             $commande->setFacture($facture);
 
-            dd($commande);
             $entityManager->persist($facture);
             $entityManager->persist($commande);
             $entityManager->flush();
     
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_mon_compte');
         }
         /////////////////////////////////////////////////////
 

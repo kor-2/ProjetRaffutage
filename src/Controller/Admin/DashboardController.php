@@ -107,9 +107,19 @@ class DashboardController extends AbstractDashboardController
     {
 
         $commandes = $cmdRepo->findBy([],['date_facturation' => 'DESC']);
+
+        foreach ($commandes as $cmd) {
+            $details = $cmd->getDetails();
+            
+        }
+
+        //$details = $commandes->getDetails();
+
         
         return $this->render('admin/commande.html.twig',[
-           'commandes' => $commandes
+           'commandes' => $commandes,
+           'nbCouteau' => '',
+           'total' => ''
         ]);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,24 +131,25 @@ class DashboardController extends AbstractDashboardController
      */
     public function modifCommande(Request $request ,ManagerRegistry $doctrine, Commande $commande ): Response
     {
-        $commande = new Commande();
-        $entityManager = $doctrine->getManager();
-        $form = $this->createForm(CommandeAdminType::class, $commande);
-        $form->handleRequest($request);
-
-       
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            $commande = $form->getData();
-            $entityManager->persist($commande);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_commande');
-        }
-
         return $this->render('admin/modifCommande.html.twig', [
-            'formCmd' => $form->createView(),
-            'commande' => $commande->getId(),
+            'commande' => $commande,
+        ]);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Page affichae des commandes 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @Route("/admin/commande/show/{id}", name="admin_show_commande")
+     */
+    public function showCommande(Request $request ,ManagerRegistry $doctrine, Commande $commande ): Response
+    {
+
+        return $this->render('admin/showCommande.html.twig', [
+            'commande' => $commande,
+
         ]);
     }
 

@@ -15,9 +15,10 @@
                 <th>Numéro de facture</th>
                 <th>Date de la prestation</th>
                 <th>Nombre de couteau</th>
-                <th>Total à payer</th>
+                <th>Total à payer TTC</th>
                 <th>Modifier</th>
                 <th>Facture</th>
+                <th>PDF</th>
             </tr>
         </thead>
         <tbody>
@@ -25,10 +26,33 @@
             <tr class="text-center">
                 <td>{{ commande.facture }}</td>
                 <td>{{ commande.DateFacturation|date("d m Y") }}</td>
-                <td>{{ commande.getCouteaux }}</td>
-                <td>{{ commande.getTotal }} €</td>
+
+                <td>
+                    {% set somCt = 0 %}
+                    {% for detail in commande.details %}
+                    
+                        {% set somCt = somCt + detail.nbCouteau %}
+                    {% endfor %}
+                    {{ somCt }}
+                    
+                    
+                </td>
+                <td>
+                    {% set somCout = 0 %}
+                    {% for detail in commande.details %}
+
+                        {% if detail.remise > 0 %}
+                            {% set somCout = somCout + ((detail.tarif * detail.nbCouteau ) * (1 -  (detail.remise / 100))) %}
+                        {% else %}
+                            {% set somCout = somCout + ((detail.tarif * detail.nbCouteau )) %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ somCout }} €
+                </td>
+
                 <td><a class="btn btn-primary" href="{{ path('admin_modif_commande', {'id' : commande.id}) }}"><i class="bi bi-pencil"></i></a></td>
-                <td><a class="btn btn-success" href=""><i class="bi bi-receipt-cutoff"></i></a></td> 
+                <td><a class="btn btn-success" href="{{ path('admin_show_commande', {'id' : commande.id}) }}"><i class="bi bi-receipt-cutoff"></i></a></td>
+                <td><a href="btn btn-secondary"><i class="bi bi-download"></i></a></td>
             </tr>
             
             {% endfor %}

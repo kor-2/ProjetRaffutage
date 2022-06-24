@@ -1,0 +1,87 @@
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+{% endblock %}
+
+
+{% block content %}
+
+<div>
+    <h1>Raffutage</h1>
+    <h2>Factures numéro: {{ commande.facture }}</h2>
+
+    <div class="d-flex">
+
+        <div class="w-25 col-6">
+            <ul class="list-group">
+                <li class="list-group-item">Client</li>
+                <li class="list-group-item">Date de facturation</li>
+                <li class="list-group-item">Debut du rendez-vous</li>
+                <li class="list-group-item">Fin du rendez-vous</li>
+            </ul>
+        </div>
+        <div class="w-25 col-6">
+            <ul class="list-group">
+                <li class="list-group-item">{{ commande.facture.client }}</li>
+                <li class="list-group-item">{{ commande.dateFacturation|format_datetime('medium', 'none', locale='fr') }}</li>
+                <li class="list-group-item">{{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</li>
+                <li class="list-group-item">{{ commande.prestation.fin|format_datetime('medium', 'short', locale='fr') }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Details de la commande</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type de couteau</th>
+                <th>Tarif unitaire</th>
+                <th>Remise (%)</th>
+                <th>Nombre de couteau</th>
+                <th>Total par type (TTC)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set totalTTC = 0 %}
+
+            {% for details in commande.details %}
+            <tr>
+                <td>{{ details.type }}</td>
+                <td>{{ details.tarif }}</td>
+                <td>{{ details.remise }}</td>
+                <td>{{ details.nbCouteau }}</td>
+                <td>
+                    {% if details.remise > 0 %}
+                    {% set totalType = ((details.tarif * details.nbCouteau ) * (1 -  (details.remise / 100))) %}
+
+                    {% else %}
+                        
+                    {% set totalType = details.nbCouteau * details.tarif %}
+                    {% endif %}
+                    
+                    {{ totalType }} €
+
+                    {% set totalTTC = totalTTC + totalType %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <p>
+            Total TTC {{ totalTTC }} €
+        </p>
+    </div>
+
+    
+    
+
+    
+
+
+
+</div>
+    
+{% endblock %}

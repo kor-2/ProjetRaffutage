@@ -57,7 +57,18 @@
                 {% for commande in app.user.Commandes %}
                 <tr class="centerText">
                     <td>{{ commande.DateFacturation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</td> 
-                    <td>{{ commande.getTotal }} €</td>
+                    <td>
+                        {% set somCout = 0 %}
+                        {% for detail in commande.details %}
+    
+                            {% if detail.remise > 0 %}
+                                {% set somCout = somCout + ((detail.tarif * detail.nbCouteau ) * (1 -  (detail.remise / 100))) %}
+                            {% else %}
+                                {% set somCout = somCout + ((detail.tarif * detail.nbCouteau )) %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ somCout }}€
+                    </td>
                     <td>
                         {% if commande.DateFacturation > maintenant %}
                         <p>Disponible après rendez-vous !</p>

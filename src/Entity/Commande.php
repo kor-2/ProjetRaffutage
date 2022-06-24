@@ -152,6 +152,18 @@ class Commande
 
         return $this;
     }
+    
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    public function setDetails(array $details): self
+    {
+        $this->details = $details;
+
+        return $this;
+    }
 
     
     
@@ -182,17 +194,7 @@ class Commande
         return $total;
     }
 
-    public function getDetails(): ?array
-    {
-        return $this->details;
-    }
-
-    public function setDetails(array $details): self
-    {
-        $this->details = $details;
-
-        return $this;
-    }
+    
 
 
 }

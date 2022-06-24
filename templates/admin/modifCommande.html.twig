@@ -5,21 +5,40 @@
 
 
 {% block content %}
-{# 
-peut etre pas besoin du CommandeAdminType et juste reprendre le Commandetype normal    
-pas possible de modifier les commandes
-#}
+
 <div>
-    <h1>Modification factures</h1>
+    <h1>Modification factures numéro: {{ commande.facture }}</h1>
+    
+    
 
-    {{ form_start(formCmd) }}
+    <form action="" method="post">
 
-        <ul id="gestionDurees" data-prototype= "{{ form_row(formCmd.typages.vars.prototype)|e('html_attr') }}">
-            {% for atelier in formCmd.typages %}
-                <li>{{ form_row(atelier) }}</li>
-            {% endfor %}
-        </ul>
-    {{ form_end(formCmd) }}
+        {% for detail in commande.details %}
+        
+        <div>
+
+            <label for="type">Type de couteau ({{ detail.tarif }} €/u)
+                <input type="text" name="type" value="{{ detail.type }}">
+            </label>
+            
+            
+            <input type="hidden" name="tarif" value="{{ detail.tarif }}">
+            <label for="nbCouteau">Nombre de couteau
+                <input type="text" name="nbCouteau" value="{{ detail.nbCouteau }}">
+            </label>
+            <label for="nbCouteau">Remise (%)
+                <input type="number" min="0" max="100" name="nbCouteau" value="{{ detail.remise }}">
+            </label>
+        </div>
+        {% endfor %}
+
+
+
+        <input type="submit" value="Modifier">
+
+
+
+    </form>
 </div>
     
 {% endblock %}
