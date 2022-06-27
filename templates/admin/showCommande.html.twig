@@ -1,38 +1,59 @@
-{% block head %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-{% endblock %}
+{% block body %}
+<style>
+    h3{
+        color: red;
+    }
+    @page { 
+    size: A4 portrait;
+    margin: 10%;
+    }
+    .infoRdv table tr td:first-child{
+        text-align: end;
+        color: red;
+    }
+    .infoRdv table tr td:last-child{
+        text-align: start;
+    }
 
-
-{% block content %}
+</style>
 
 <div>
     <h1>Raffutage</h1>
     <h2>Factures numéro: {{ commande.facture }}</h2>
 
-    <div class="d-flex">
+    <div class="infoRdv">
 
-        <div class="w-25 col-6">
-            <ul class="list-group">
-                <li class="list-group-item">Client</li>
-                <li class="list-group-item">Date de facturation</li>
-                <li class="list-group-item">Debut du rendez-vous</li>
-                <li class="list-group-item">Fin du rendez-vous</li>
-            </ul>
-        </div>
-        <div class="w-25 col-6">
-            <ul class="list-group">
-                <li class="list-group-item">{{ commande.facture.client }}</li>
-                <li class="list-group-item">{{ commande.dateFacturation|format_datetime('medium', 'none', locale='fr') }}</li>
-                <li class="list-group-item">{{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</li>
-                <li class="list-group-item">{{ commande.prestation.fin|format_datetime('medium', 'short', locale='fr') }}</li>
-            </ul>
-        </div>
+        <table>
+            <tbody>
+             <tr>
+                <td>Client:</td>
+                <td>{{ commande.facture.client }}</td>
+             </tr>
+             <tr>
+                <td>Date de facturation:</td>
+                <td>{{ commande.dateFacturation|format_datetime('medium', 'none', locale='fr') }}</td>
+             </tr>
+             <tr>
+                <td>Debut du rendez-vous:</td>
+                <td>{{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</td>
+             </tr>
+             <tr>
+                <td>Fin du rendez-vous:</td>
+                <td>{{ commande.prestation.fin|format_datetime('medium', 'short', locale='fr') }}</td>
+             </tr>
+            </tbody>
+        </table>
+
+        
+    
+      
+
+
     </div>
 
     <h3>Details de la commande</h3>
 
-    <table class="table">
+    <table>
         <thead>
             <tr>
                 <th>Type de couteau</th>

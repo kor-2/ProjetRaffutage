@@ -52,7 +52,7 @@
 
                 <td><a class="btn btn-primary" href="{{ path('admin_modif_commande', {'id' : commande.id}) }}"><i class="bi bi-pencil"></i></a></td>
                 <td><a class="btn btn-success" href="{{ path('admin_show_commande', {'id' : commande.id}) }}"><i class="bi bi-receipt-cutoff"></i></a></td>
-                <td><a href="btn btn-secondary"><i class="bi bi-download"></i></a></td>
+                <td><a class="btn btn-secondary" href="{{ path('app_pdf', {'id' : commande.id}) }}"><i class="bi bi-download"></i></a></td>
             </tr>
             
             {% endfor %}
