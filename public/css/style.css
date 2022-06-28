@@ -33,6 +33,10 @@ h3{
     justify-content: space-between;
 }
 
+.m-y{
+    padding: 50px 0;
+}
+
 .titre > h2 ,h3{
     text-align: center;
     margin: 20px 0;
@@ -383,4 +387,30 @@ main h2{
 .containerCompte td{
     border: 1px solid black;
     padding: 15px;
+}
+
+/*
+* ************************** Page rendez-vous
+*/
+
+.formRdv{
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+.rdv{
+    width: 75%;
+}
+.type{
+    width: 25%;
+    padding-top: 100px;
+}
+
+#calendar{
+    width: 100%;
+    margin:auto;
+}
+
+#selection{
+    margin-bottom: 20px;
 }

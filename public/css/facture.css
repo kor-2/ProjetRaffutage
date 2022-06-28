@@ -1,11 +1,11 @@
 @page { 
     size: A4 portrait;
     margin: 10%;
-}
-.infoRdv table tr td:first-child{
-    text-align: end;
-    color: red;
-}
-.infoRdv table tr td:last-child{
-    text-align: start;
-}
+    }
+    .infoRdv table tr td:first-child{
+        font-weight: bold;
+        color: red;
+    }
+    .infoRdv table tr td:last-child{
+        text-align: start;
+    }

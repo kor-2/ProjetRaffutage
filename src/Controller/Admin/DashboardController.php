@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Facture;
 use App\Entity\Commande;
 use App\Entity\Prestation;
+use App\Form\CommandeType;
 use App\Entity\TypeCouteau;
 use App\Form\CommandeAdminType;
 use App\Repository\FactureRepository;
@@ -40,7 +41,7 @@ class DashboardController extends AbstractDashboardController
     public function planning(PrestationRepository $presRepo): Response
     {
         // prend les créneaux libre/
-        $plans = $presRepo->getCreneau(true, true, false);
+        $plans = $presRepo->getCreneau(true, true, false ,false);
         $rdvLibre = [];
         foreach ($plans as $plan) {
             $rdvLibre[] = [
@@ -48,7 +49,7 @@ class DashboardController extends AbstractDashboardController
                 'id' => $plan->getId(),
                 'start' => $plan->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $plan->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#009933',
+                'color' => '#009933',
             ];
         }
         // prend les créneaux pris
@@ -59,19 +60,19 @@ class DashboardController extends AbstractDashboardController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#808080',
+                'color' => '#808080',
                 'code' => 'INDISPO'
             ];
         }
         // prend les créneaux libre mais dans le passé donc indisponible
-        $pris = $presRepo->getCreneau(true, true, true);
+        $pris = $presRepo->getCreneau(true, true, true, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
                 'title' => 'Créneau indisponible',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#808080',
+                'color' => '#808080',
                 'code' => 'INDISPO'
                 
             ];
@@ -85,7 +86,7 @@ class DashboardController extends AbstractDashboardController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#808080',
+                'color' => '#808080',
                 'code' => 'INDISPO'
             ];
         }
@@ -115,11 +116,10 @@ class DashboardController extends AbstractDashboardController
 
         //$details = $commandes->getDetails();
 
+
         
         return $this->render('admin/commande.html.twig',[
            'commandes' => $commandes,
-           'nbCouteau' => '',
-           'total' => ''
         ]);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,9 +131,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function modifCommande(Request $request ,ManagerRegistry $doctrine, Commande $commande ): Response
     {
-        
+        $commande = new Commande();
+        $entityManager = $doctrine->getManager();
+        $form = $this->createForm(CommandeType::class, $commande);
+
         return $this->render('admin/modifCommande.html.twig', [
             'commande' => $commande,
+            'form' => $form->createView(),
         ]);
     }
 

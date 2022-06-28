@@ -40,7 +40,11 @@ class CommandeType extends AbstractType
                     return $prestaRepo->getCreneau(true,true);
                 },
             ])*/
-            ->add('Valider', SubmitType::class)
+            ->add('Valider', SubmitType::class,[
+                'attr'=>[
+                    'class'=> 'boutonGris'
+                ]
+            ])
         ;
     }
 

@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PDFController extends AbstractController
 {
     /**
-     * @Route("/pdf/vue{id}", name="app_pdf")
+     * @Route("/pdf/vue/{id}", name="app_pdf")
      */
     public function index(Commande $commandes):Response
     {
@@ -29,6 +29,8 @@ class PDFController extends AbstractController
             'title' => "Welcome to our PDF Test",
             'commande' => $commandes
         ]);
+
+        $num = $commandes->getFacture()->getNumero();
         
         
         // Load HTML to Dompdf
@@ -41,9 +43,43 @@ class PDFController extends AbstractController
         $dompdf->render();
 
         // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("mypdf.pdf", [
+        $dompdf->stream("Facture_Raffutage_".$num.".pdf", [
             "Attachment" => false
         ]);
+        exit(0);
+    }
+    /**
+     * @Route("/pdf/telechargement/{id}", name="app_pdf_telechargement")
+     */
+    public function telechargement(Commande $commandes):Response
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('admin/showCommande.html.twig', [
+            'title' => "Welcome to our PDF Test",
+            'commande' => $commandes
+        ]);
+        $num = $commandes->getFacture()->getNumero();
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("Facture_Raffutage_".$num.".pdf", [
+            "Attachment" => true
+        ]);
+
         exit(0);
     }
 }

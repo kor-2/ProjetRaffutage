@@ -55,10 +55,14 @@ class PrestationRepository extends ServiceEntityRepository
     /**
      * @return Prestation[] Returns an array of Prestation objects
      */
-    public function getCreneau($getResult = true, $libre = true, $passe = false)
+    public function getCreneau($getResult = true, $libre = true, $passe = false , $indispo = true)
     {
         // prend la date d'aujourd'hui
-        $d = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        if ($indispo) {
+            $d = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        }else {
+            $d = new \DateTime('now +12 hour', new \DateTimeZone('Europe/Paris'));
+        }
 
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();

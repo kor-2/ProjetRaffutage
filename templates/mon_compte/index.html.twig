@@ -9,6 +9,16 @@
         <h3>Information du compte</h3>
     </div>
     <div class="containerCompte">
+        {% for flash in app.flashes('success') %}
+            <div class="alert alert-success">
+                <div class="success">
+                    <p>
+
+                        {{ flash }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
 
         <table class="tableinfo">
             <tbody>
@@ -42,7 +52,9 @@
         <div class="titre">
             <h3>Rendez-vous</h3>
         </div>
-
+                    
+                        
+                    
         {% if app.user.Commandes|length > 0 %}
         <table>
             <thead>
@@ -56,7 +68,7 @@
             <tbody>
                 {% for commande in app.user.Commandes %}
                 <tr class="centerText">
-                    <td>{{ commande.DateFacturation|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</td> 
+                    <td>{{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</td> 
                     <td>
                         {% set somCout = 0 %}
                         {% for detail in commande.details %}
@@ -70,16 +82,16 @@
                         {{ somCout }}€
                     </td>
                     <td>
-                        {% if commande.DateFacturation > maintenant %}
+                        {% if commande.prestation.debut > maintenant %}
                         <p>Disponible après rendez-vous !</p>
                         {% else %}
                         
                         
-                        <a href="#" class="boutonGris"> <i class="fa-solid fa-file-arrow-down"></i> Télécharger</a>
+                        <a href="{{ path('app_pdf_telechargement', {'id' : commande.id }) }}" class="boutonGris"> <i class="fa-solid fa-file-arrow-down"></i> Télécharger</a>
                         {% endif %}
                     </td>
                     <td>
-                        {% if commande.DateFacturation < maintenant %}
+                        {% if commande.prestation.debut < maintenant %}
                         <p><i class="fa-solid fa-check"></i></p>
                         {% else %}
                         

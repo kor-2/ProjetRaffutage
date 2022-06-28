@@ -1,20 +1,30 @@
 {% block body %}
 <style>
-    h3{
-        color: red;
-    }
     @page { 
     size: A4 portrait;
     margin: 10%;
     }
-    .infoRdv table tr td:first-child{
-        text-align: end;
-        color: red;
+    .infoRdv ul{
+        list-style: none;
     }
-    .infoRdv table tr td:last-child{
-        text-align: start;
+    .details{
+        width: 100%;
+        text-align: center;
+        margin-bottom: 40px;
     }
-
+    strong{
+        margin-right: 20px;
+    }
+    .details, 
+    thead,
+    tbody,
+    tr, 
+    td,
+    th{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    
 </style>
 
 <div>
@@ -23,37 +33,18 @@
 
     <div class="infoRdv">
 
-        <table>
-            <tbody>
-             <tr>
-                <td>Client:</td>
-                <td>{{ commande.facture.client }}</td>
-             </tr>
-             <tr>
-                <td>Date de facturation:</td>
-                <td>{{ commande.dateFacturation|format_datetime('medium', 'none', locale='fr') }}</td>
-             </tr>
-             <tr>
-                <td>Debut du rendez-vous:</td>
-                <td>{{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</td>
-             </tr>
-             <tr>
-                <td>Fin du rendez-vous:</td>
-                <td>{{ commande.prestation.fin|format_datetime('medium', 'short', locale='fr') }}</td>
-             </tr>
-            </tbody>
-        </table>
-
-        
-    
-      
-
+        <ul>
+            <li><strong>Client:</strong> {{ commande.facture.client }}</li>
+            <li><strong>Date de facturation:</strong> {{ commande.dateFacturation|format_datetime('medium', 'none', locale='fr') }}</li>
+            <li><strong>Debut du rendez-vous:</strong> {{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</li>
+            <li><strong>Fin du rendez-vous:</strong> {{ commande.prestation.fin|format_datetime('medium', 'short', locale='fr') }}</li>
+        </ul>
 
     </div>
 
     <h3>Details de la commande</h3>
 
-    <table>
+    <table class="details">
         <thead>
             <tr>
                 <th>Type de couteau</th>
@@ -92,7 +83,7 @@
 
     <div>
         <p>
-            Total TTC {{ totalTTC }} €
+            <strong>Total TTC {{ totalTTC }} €</strong>  
         </p>
     </div>
 

@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let rdv = document.getElementById("rdvJs").dataset.choice
     // analyse une chaine de caractère et la transforme en JSON 
     let creneauLibre = JSON.parse(rdv)
-        
     let calendarEl = document.getElementById('calendar');
-
     let calendar = new FullCalendar.Calendar(calendarEl, {
       // configuration de l'affichage de full calendar
       headerToolbar: {
@@ -23,24 +21,26 @@ document.addEventListener('DOMContentLoaded', function() {
       events: creneauLibre,
       locale: 'fr',
       nowIndicator: true,
-      weekNumbers: true,
       businessHours: {
         daysOfWeek: [ 1, 2, 3, 4, 5, 6 ],
         startTime: '09:00', 
         endTime: '18:00', 
       },
       hiddenDays:[0],
-
       eventClick: function(presta){
         
-        var valuePresta = presta.event;
+        let valuePresta = presta.event;
         if (!valuePresta.extendedProps.code) {
           let input = document.getElementById("rdvJs")
-
-          //var valeur = valuePresta.extendedProps.phpObj
-          var valeur = valuePresta.id
+          let show = document.getElementById("selection")
+          // envoi de l'id de la prestation dans input hidden 
+          let valeur = valuePresta.id
           input.value = valeur
-          console.log(valeur)
+
+          //envoi de la date la prestation dans le h3 pour l'affichage
+          let debut = valuePresta.start
+          let debutFormat = new Intl.DateTimeFormat('fr-FR',{ dateStyle: 'long', timeStyle: 'short' }).format(debut)
+          show.innerText = debutFormat
           
         }else{
           alert("Le créneau est indisponible")
@@ -49,4 +49,3 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     calendar.render();
   })
-  

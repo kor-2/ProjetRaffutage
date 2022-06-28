@@ -9,36 +9,46 @@
 <div>
     <h1>Modification factures numéro: {{ commande.facture }}</h1>
     
-    
+   <pre>
+    {{ dump(commande) }}
+   </pre>
 
-    <form action="" method="post">
+    {{  form_start(form) }}
 
+        <input  type="hidden" name="user" value="{{ commande.user }}">
+        <input  type="hidden" name="prestation" value="{{ commande.prestation }}">
+        <input  type="hidden" name="date_facturation" value="{#{{ commande.dateFacturation }}#}">
+        <input  type="hidden" name="facture" value="{{ commande.facture }}">
+        <input  type="hidden" name="typage" value="{#{{ commande.typages }}#}">
+
+        {% set i = 0 %}
         {% for detail in commande.details %}
         
+        {% set i = i + 1 %}
         <div>
 
             <label for="type">Type de couteau ({{ detail.tarif }} €/u)
-                <input type="text" name="type" value="{{ detail.type }}">
+                <input type="text" name="type{{ i }}" value="{{ detail.type }}">
             </label>
             
             
-            <input type="hidden" name="tarif" value="{{ detail.tarif }}">
+            <input type="hidden" name="tarif{{ i }}" value="{{ detail.tarif }}">
             <label for="nbCouteau">Nombre de couteau
-                <input type="text" name="nbCouteau" value="{{ detail.nbCouteau }}">
+                <input type="text" name="nbCouteau{{ i }}" value="{{ detail.nbCouteau }}">
             </label>
             <label for="nbCouteau">Remise (%)
-                <input type="number" min="0" max="100" name="nbCouteau" value="{{ detail.remise }}">
+                <input type="number" min="0" max="100" name="remise{{ i }}" value="{{ detail.remise }}">
             </label>
         </div>
         {% endfor %}
 
 
 
-        <input type="submit" value="Modifier">
+        {{ form_widget(form.Valider) }}
 
 
 
-    </form>
+        {{  form_end(form) }}
 </div>
     
 {% endblock %}

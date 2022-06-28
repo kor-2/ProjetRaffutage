@@ -25,7 +25,7 @@ class CommandeController extends AbstractController
         //////////////////////////////////////////////////////
 
         // prend les créneaux libre
-        $plans = $presRepo->getCreneau(true, true, false);
+        $plans = $presRepo->getCreneau(true, true, false ,false);
         $rdvLibre = [];
         foreach ($plans as $plan) {
             $rdvLibre[] = [
@@ -33,7 +33,7 @@ class CommandeController extends AbstractController
                 'id' => $plan->getId(),
                 'start' => $plan->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $plan->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#009933',
+                'color' => '#009933',
             ];
         }
         
@@ -45,19 +45,19 @@ class CommandeController extends AbstractController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#808080',
+                'color' => '#808080',
                 'code' => 'INDISPO'
             ];
         }
         // prend les créneaux libre mais dans le passé donc indisponible
-        $pris = $presRepo->getCreneau(true, true, true);
+        $pris = $presRepo->getCreneau(true, true, true, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
                 'title' => 'Créneau indisponible',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'backgroundColor' => '#808080',
+                'color' => '#808080',
                 'code' => 'INDISPO'
                 
             ];
@@ -71,7 +71,7 @@ class CommandeController extends AbstractController
                  'id' => $pri->getId(),
                  'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                  'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                 'backgroundColor' => '#808080',
+                 'color' => '#808080',
                  'code' => 'INDISPO'
              ];
          }
@@ -89,9 +89,14 @@ class CommandeController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $mtn = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+            $fuseau = datefmt_create('fr_FR', \IntlDateFormatter::FULL, \IntlDateFormatter::NONE);
+
+
+
             $user =$this->getUser();
             $idPresta = $request->request->get('presta'); // recupere l'id de la prestation 
             $prestaObj = $presRepo->findOneBy(['id'=> $idPresta]);// cherche la prestation avec l'id trouver si dessus        
@@ -123,13 +128,16 @@ class CommandeController extends AbstractController
                     'remise' => 0
                 ];
             }
-
+            
             $commande->setDetails($details);
+
+            
             $commande->setPrestation($prestaObj);
             $commande->setDateFacturation($prestaObj->getDebut());
             $commande->setUser($user);
             $commande->setFacture($facture);
-
+            
+            $this->addFlash('success', 'Rendez-vous le '. datefmt_format($fuseau, $prestaObj->getDebut() ));
             $entityManager->persist($facture);
             $entityManager->persist($commande);
             $entityManager->flush();

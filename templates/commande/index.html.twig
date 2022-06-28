@@ -4,25 +4,35 @@
 
 {% block body %}
 
-<h2 class="centerText">Prise de rendez-vous</h2>
-{{ form_start(rdvForm) }}
+<div class="titre">
 
-    <div class="centerDiv">
+    <h2>Prise de rendez-vous</h2>
+</div>
+
+{{ form_start(rdvForm) }}
+<div  class="formRdv">
+
+    <div class="rdv">
         <div id="calendar"></div>
         <input name="presta" type="hidden" id="rdvJs" data-choice="{{ data }}"></input>
     </div>
-    {# {{ form_row(rdvForm.prestation) }} #}
-    <ul id="gestionDurees" data-prototype= "{{ form_row(rdvForm.typages.vars.prototype)|e('html_attr') }}">
-        {% for atelier in rdvForm.typages %}
+    
+    <div class="type">
+        <h3 id="selection" class="centerText"></h3>
+        <ul id="gestionDurees" data-prototype= "{{ form_row(rdvForm.typages.vars.prototype)|e('html_attr') }}">
+            {% for atelier in rdvForm.typages %}
             <li>{{ form_row(atelier) }}</li>
-        {% endfor %}
-    </ul>
-    {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
-
-    {% do rdvForm.typages.setRendered %}
-    {{ form_row(rdvForm.Valider) }}
-
-{{ form_end(rdvForm) }}
+            {% endfor %}
+        </ul>
+        {% do rdvForm.typages.setRendered %}
+        <div class="centerDiv centerText m-y">
+            {{ form_widget(rdvForm.Valider) }}
+        </div>
+        
+    </div>
+    
+</div>
+    {{ form_end(rdvForm) }}
     
 
 {% endblock %}

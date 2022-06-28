@@ -24,8 +24,7 @@ class MonCompteController extends AbstractController
     public function index(): Response
     {
         $mtn = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-        $user =$this->getUser();
-
+        
 
         return $this->render('mon_compte/index.html.twig', [
             'titre' => ' - Mon compte',
