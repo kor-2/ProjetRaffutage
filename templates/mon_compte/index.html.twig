@@ -59,6 +59,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Numéro de facture</th>
                     <th>Rendez-vous</th>
                     <th>Montant</th>
                     <th>PDF</th>
@@ -68,6 +69,7 @@
             <tbody>
                 {% for commande in app.user.Commandes %}
                 <tr class="centerText">
+                    <td>{{ commande.facture }}</td>
                     <td>{{ commande.prestation.debut|format_datetime('medium', 'short', locale='fr') }}</td> 
                     <td>
                         {% set somCout = 0 %}

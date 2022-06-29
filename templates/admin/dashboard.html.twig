@@ -9,6 +9,33 @@
 <div>
 
     <h1>Admin</h1>
+    <div class="row">
+    
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Utilisateurs inscrits </h5>
+                    <p class="h4">
+                        {{ users|length }}
+                    </p>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Commande effectué</h5>
+                    <p class="h4">
+                        {{ commandes|length }}
+                    </p>
+                
+
+                </div>
+            </div>
+        </div>
+    </div>
     
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 // Scripts jQuery / JavaScript généraux
 //création de 3 éléments HTMLElement    
-var $addCollectionButton = $('<button type="button" class="add_collection_link">Ajouter un type de couteau</button>');
-var $delCollectionButton = $('<button type="button" class="del_collection_link">Supprimer</button>');
+var $addCollectionButton = $('<button type="button" class="add_collection_link boutonGris">Ajouter un type de couteau</button>');
+var $delCollectionButton = $('<button type="button" class="del_collection_link supp">Supprimer</button>');
 //le premier élément li de la liste (celui qui contient le bouton 'ajouter')
 var $newLinkLi = $('<li></li>').append($addCollectionButton);
 function generateDeleteButton(){

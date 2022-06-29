@@ -7,19 +7,16 @@
 {% block content %}
 
 <div>
-    <h1>Modification factures numéro: {{ commande.facture }}</h1>
+    <h1>Modification de la commande numéro: {{ commande.facture }}</h1>
     
-   <pre>
-    {{ dump(commande) }}
-   </pre>
 
-    {{  form_start(form) }}
+    <form action="{{ path('admin_modif_cmd_proc', { 'id_cmd' : commande.id , 
+                                                    'id_user' : commande.user.id,
+                                                    'id_presta' : commande.prestation.id,
+                                                    'id_fact' : commande.facture.id }) }}" 
+                                                    method="post">  
 
-        <input  type="hidden" name="user" value="{{ commande.user }}">
-        <input  type="hidden" name="prestation" value="{{ commande.prestation }}">
-        <input  type="hidden" name="date_facturation" value="{#{{ commande.dateFacturation }}#}">
-        <input  type="hidden" name="facture" value="{{ commande.facture }}">
-        <input  type="hidden" name="typage" value="{#{{ commande.typages }}#}">
+        
 
         {% set i = 0 %}
         {% for detail in commande.details %}
@@ -31,24 +28,23 @@
                 <input type="text" name="type{{ i }}" value="{{ detail.type }}">
             </label>
             
-            
             <input type="hidden" name="tarif{{ i }}" value="{{ detail.tarif }}">
+
             <label for="nbCouteau">Nombre de couteau
-                <input type="text" name="nbCouteau{{ i }}" value="{{ detail.nbCouteau }}">
+                <input type="number" name="nbCouteau{{ i }}" value="{{ detail.nbCouteau }}">
             </label>
+
             <label for="nbCouteau">Remise (%)
                 <input type="number" min="0" max="100" name="remise{{ i }}" value="{{ detail.remise }}">
             </label>
         </div>
         {% endfor %}
 
+        <button type="submit" class="btn btn-primary mt-4">Modifier</button>
+
+    </form>
 
 
-        {{ form_widget(form.Valider) }}
-
-
-
-        {{  form_end(form) }}
 </div>
     
 {% endblock %}

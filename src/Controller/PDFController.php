@@ -26,7 +26,7 @@ class PDFController extends AbstractController
     
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('admin/showCommande.html.twig', [
-            'title' => "Welcome to our PDF Test",
+            'title' => "Facture raffutage",
             'commande' => $commandes
         ]);
 
@@ -62,7 +62,7 @@ class PDFController extends AbstractController
 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('admin/showCommande.html.twig', [
-            'title' => "Welcome to our PDF Test",
+            'title' => "Facture raffutage",
             'commande' => $commandes
         ]);
         $num = $commandes->getFacture()->getNumero();

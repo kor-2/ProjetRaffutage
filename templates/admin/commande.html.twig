@@ -19,13 +19,14 @@
                 <th>Modifier</th>
                 <th>Facture</th>
                 <th>PDF</th>
+                <th>Payé</th>
             </tr>
         </thead>
         <tbody>
             {% for commande in commandes %}
             <tr class="text-center">
                 <td>{{ commande.facture }}</td>
-                <td>{{ commande.DateFacturation|date("d m Y") }}</td>
+                <td>{{ commande.DateFacturation|date("d / m / Y") }}</td>
 
                 <td>
                     {% set somCt = 0 %}
@@ -34,8 +35,7 @@
                         {% set somCt = somCt + detail.nbCouteau %}
                     {% endfor %}
                     {{ somCt }}
-                    
-                    
+
                 </td>
                 <td>
                     {% set somCout = 0 %}
@@ -53,7 +53,15 @@
                 <td><a class="btn btn-primary" href="{{ path('admin_modif_commande', {'id' : commande.id}) }}"><i class="bi bi-pencil"></i></a></td>
                 <td><a class="btn btn-success" href="{{ path('app_pdf', {'id' : commande.id}) }}"><i class="bi bi-receipt-cutoff"></i></a></td>
                 <td><a class="btn btn-secondary" href="{{ path('app_pdf_telechargement', {'id' : commande.id}) }}"><i class="bi bi-download"></i></a></td>
+                <td>
+                    {% if commande.facture.paye %}
+                        Payé
+                    {% else %}
+                        Non payé
+                    {% endif %}
+                </td>
             </tr>
+
             
             {% endfor %}
         </tbody>

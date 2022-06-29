@@ -8,6 +8,15 @@
 
     <h2>Prise de rendez-vous</h2>
 </div>
+{% for flash in app.flashes('error') %}
+                
+                    <div class="error">
+                        <p>
+                            {{ flash }}
+                        </p>
+                    </div>
+                
+            {% endfor %}
 
 {{ form_start(rdvForm) }}
 <div  class="formRdv">
@@ -18,10 +27,12 @@
     </div>
     
     <div class="type">
-        <h3 id="selection" class="centerText"></h3>
+        <h3 id="selection" class="centerText">Aucune date séléctionné</h3>
         <ul id="gestionDurees" data-prototype= "{{ form_row(rdvForm.typages.vars.prototype)|e('html_attr') }}">
-            {% for atelier in rdvForm.typages %}
-            <li>{{ form_row(atelier) }}</li>
+            {% for type in rdvForm.typages %}
+            
+            <li>{{ form_widget(type, 'Type de couteau') }}</li>
+            <li>{{ form_widget(type, 'Type de couteau') }}</li>
             {% endfor %}
         </ul>
         {% do rdvForm.typages.setRendered %}

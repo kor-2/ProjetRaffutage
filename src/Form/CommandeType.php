@@ -19,10 +19,6 @@ class CommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            //->add('date_facturation')
-            //->add('paye')
-            //->add('lien_pdf')
-            //->add('user')
             ->add('typages', CollectionType::class,[
                 'entry_type' => TypageType::class,
                 'prototype' => true,
@@ -30,16 +26,6 @@ class CommandeType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
-            //->add('prestation', HiddenType::class)
-            
-            /*
-            ->add('prestation', EntityType::class, [
-                'class' => Prestation::class,
-                'placeholder' => 'Choisir un créneau !',
-                'query_builder' => function (PrestationRepository $prestaRepo) {
-                    return $prestaRepo->getCreneau(true,true);
-                },
-            ])*/
             ->add('Valider', SubmitType::class,[
                 'attr'=>[
                     'class'=> 'boutonGris'

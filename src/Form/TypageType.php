@@ -24,12 +24,19 @@ class TypageType extends AbstractType
         $builder
             ->add('nb_couteau',NumberType::class,[
                 'label' => 'Nombre de couteau',
-                'attr' => ['min' => '1', 'max' => '50'],
+                'attr' => [
+                    'min' => '1', 
+                    'max' => '50',
+                    'class'=>'m-y'
+                ],
             ])
             ->add('commande', HiddenType::class)
             ->add('typeCouteau',EntityType::class, [
                 'label' => 'Type',
                 'class' => TypeCouteau::class,
+                'attr' => [
+                    'class'=>'m-y'
+                ]
             ])
         ;
         $builder

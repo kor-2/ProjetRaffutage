@@ -101,13 +101,14 @@ class CommandeController extends AbstractController
             $idPresta = $request->request->get('presta'); // recupere l'id de la prestation 
             $prestaObj = $presRepo->findOneBy(['id'=> $idPresta]);// cherche la prestation avec l'id trouver si dessus        
 
+            
             // genere la facture
             $facture = new Facture();
             $facture->setClient($user->nomEntier());
             $facture->setPaye(false);
 
             // création du numéro de commande
-            $prt1 = mb_substr($user->nomEntier(),0,1).strtoupper(mb_substr($user->nomEntier(),-1,1));
+            $prt1 = strtoupper(mb_substr($user->nomEntier(),0,1)).strtoupper(mb_substr($user->nomEntier(),-1,1));
             $prt2 = $mtn->format('Y');
             $prt3 = count($cmdRepo->findAll()) + 1;
 
@@ -129,9 +130,13 @@ class CommandeController extends AbstractController
                 ];
             }
             
-            $commande->setDetails($details);
-
+            if ($prestaObj == null) {
+                
+                $this->addFlash('error', 'Vous n\'avez pas sélèctionné de créneau !' );
+                return $this->redirectToRoute('app_commande');
+            }
             
+            $commande->setDetails($details);
             $commande->setPrestation($prestaObj);
             $commande->setDateFacturation($prestaObj->getDebut());
             $commande->setUser($user);

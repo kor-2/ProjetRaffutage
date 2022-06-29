@@ -9,6 +9,7 @@ use App\Entity\Prestation;
 use App\Form\CommandeType;
 use App\Entity\TypeCouteau;
 use App\Form\CommandeAdminType;
+use App\Repository\UserRepository;
 use App\Repository\FactureRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\PrestationRepository;
@@ -19,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
@@ -28,7 +30,16 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $users = $em->getRepository(User::class)->findAll();
+        $commandes = $em->getRepository(Commande::class)->findAll();
+
+
+        return $this->render('admin/dashboard.html.twig',[
+            'users' => $users,
+            'commandes' => $commandes
+        ]);
     }
 
     ////////////////////////////
@@ -107,17 +118,8 @@ class DashboardController extends AbstractDashboardController
     public function listCommandee(CommandeRepository $cmdRepo): Response
     {
 
-        $commandes = $cmdRepo->findBy([],['date_facturation' => 'DESC']);
+        $commandes = $cmdRepo->findBy([],['date_facturation' => 'DESC']);     
 
-        foreach ($commandes as $cmd) {
-            $details = $cmd->getDetails();
-            
-        }
-
-        //$details = $commandes->getDetails();
-
-
-        
         return $this->render('admin/commande.html.twig',[
            'commandes' => $commandes,
         ]);
@@ -127,20 +129,60 @@ class DashboardController extends AbstractDashboardController
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * @Route("/admin/commande/modif/{id}", name="admin_modif_commande")
+     * @Route("/admin/commande/modification/{id}", name="admin_modif_commande")
+     * 
      */
     public function modifCommande(Request $request ,ManagerRegistry $doctrine, Commande $commande ): Response
     {
-        $commande = new Commande();
-        $entityManager = $doctrine->getManager();
-        $form = $this->createForm(CommandeType::class, $commande);
 
         return $this->render('admin/modifCommande.html.twig', [
             'commande' => $commande,
-            'form' => $form->createView(),
         ]);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Page modif des commandes 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @Route("/admin/commande/modif/{id_cmd}/{id_user}/{id_presta}/{id_fact}", name="admin_modif_cmd_proc")
+     * 
+     * @ParamConverter("commande", options={"mapping" = {"id_cmd" : "id"}})
+     * @ParamConverter("user", options={"mapping" = {"id_user" : "id"}})
+     * @ParamConverter("prestation", options={"mapping" = {"id_presta" : "id"}})
+     * @ParamConverter("facture", options={"mapping" = {"id_fact" : "id"}})
+     */
+    public function modifCmdProc(Request $request ,ManagerRegistry $doctrine, Commande $commande , User $user, Prestation $prestation, Facture $facture): Response
+    {
+        $entityManager = $doctrine->getManager();
+
+        $dateFacturation = $prestation->getDebut();
+        
+        $newDetails = [];
+        $oldDetails = $commande->getDetails();
+        $i = 0;
+        
+        
+
+        foreach ($oldDetails as $old ) {
+            ++$i;
+            $newdetails[] = [
+                'type' => $request->request->get('type'.$i),
+                'tarif' => $request->request->get('tarif'.$i),
+                'remise' => $request->request->get('remise'.$i),
+                'nbCouteau' => $request->request->get('nbCouteau'.$i),
+            ];
+
+        }
+
+        $commande->setDetails($newdetails);
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('admin_commande');
+        
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // Page affichae des commandes 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +223,8 @@ class DashboardController extends AbstractDashboardController
         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
         MenuItem::linkToCrud('Type de couteau', 'fas fa-ruler-horizontal', TypeCouteau::class),
         MenuItem::section('Comptabilité'),
-        MenuItem::linkToRoute('Factures clients','fas fa-file-invoice-dollar','admin_commande'),
+        MenuItem::linkToRoute('Commandes clients','fas fa-file','admin_commande'),
+        MenuItem::linkToCrud('Facture', 'fas fa-file-invoice-dollar', Facture::class),
         ];
     }
     /////////////////////////////////////////

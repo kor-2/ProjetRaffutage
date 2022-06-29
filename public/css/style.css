@@ -4,6 +4,7 @@
     --noir: #000000;
     --blanc: #ffffff;
 }
+
 *{
     box-sizing: border-box;
     font-size: 16px;
@@ -34,6 +35,9 @@ h3{
 }
 
 .m-y{
+    margin: 10px 0;
+}
+.p-y{
     padding: 50px 0;
 }
 
@@ -108,6 +112,7 @@ h3{
     border-radius: 3px;
     color: white;
     text-decoration: none;
+    border: none;
 }
 .supp:hover{
     background-color: #ff142c;
@@ -124,7 +129,7 @@ h3{
     padding: 10px 15px;
     background-color: var(--ombre);
     border: none;
-    border-radius: none;
+    border-radius: 3px;
     
 }
 
@@ -413,4 +418,13 @@ main h2{
 
 #selection{
     margin-bottom: 20px;
+}
+.type ul{
+    padding: 0;
+}
+
+.type ul li{
+    list-style: none;
+    text-align: center;
+    margin: 20px 0;
 }
