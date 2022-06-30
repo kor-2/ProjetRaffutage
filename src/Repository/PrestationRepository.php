@@ -47,9 +47,12 @@ class PrestationRepository extends ServiceEntityRepository
     }
 
     /////////////////////////////////////////
-    // Cherche les créneau libre qui sont encore disponible
+    // les créneau libre et réservé
     // $sortieQuery =si false alors retourne un array sinon retourne un queryBuilder
-    // $tous = si true prend uniquement les dates qui sont dans le future
+    // $libre = si true prend les prestations libre sinon les prestation réservé
+    // $passe = si true prend uniquement les dates qui sont dans le passés
+    // $indispo = si false prend les prestation libre mais trop proche de la date 
+    //              d'aujourd'hui pour qu'un client ne prenne le rdv
     /////////////////////////////////////////
 
     /**
@@ -61,9 +64,8 @@ class PrestationRepository extends ServiceEntityRepository
         if ($indispo) {
             $d = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         }else {
-            $d = new \DateTime('now +12 hour', new \DateTimeZone('Europe/Paris'));
+            $d = new \DateTime('now +9 hour', new \DateTimeZone('Europe/Paris'));
         }
-
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
 
@@ -76,7 +78,6 @@ class PrestationRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
         $sub->select('pr')
             ->from('App\Entity\Prestation', 'pr');
-        
         switch ($libre) {
             case true:
                 $sub->where($sub->expr()->notIn('pr.id', $qb->getDQL()));
@@ -85,7 +86,6 @@ class PrestationRepository extends ServiceEntityRepository
                 $sub->where($sub->expr()->in('pr.id', $qb->getDQL()));
                 break;
         }
-
         switch ($passe) {
             case true:
                 $sub->andWhere('pr.debut < :today')

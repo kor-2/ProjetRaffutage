@@ -12,9 +12,23 @@
     margin: 0;
     
 }
+
+#grosWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+   
+    
+}
+
 #wrapper{
     margin:0 auto;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
 }
 h1{
     font-size: 5em;
@@ -25,13 +39,6 @@ h2{
 }
 h3{
     font-size: 1.5em;
-}
-
-#grosWrapper{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .m-y{
@@ -288,6 +295,7 @@ footer .logo{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 }
 
 #headerAccueil p{
@@ -311,7 +319,9 @@ main h2{
 #infoAccueil{
     padding: 30px 0;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(2,1fr);
+    gap: 10%;
+    width: 100%;
 }
 #infoAccueil div{
     width: 100%;
@@ -427,4 +437,53 @@ main h2{
     list-style: none;
     text-align: center;
     margin: 20px 0;
+}
+
+/***********************************************************************************************
+Debut responsive
+************************************************************************************************/
+
+@media screen and (max-width: 768px) {
+    
+
+    /*
+    * ******************Navbar
+    */
+
+    .navContainer{
+        flex-direction: column;
+        padding-bottom: 20px;
+    }
+
+    #navigation ul{
+        justify-content: center;
+        margin: 10px 0 5px 0;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    
+
+    /*
+    * ******************Navbar
+    */
+
+    .navContainer{
+        flex-direction: column;
+        padding-bottom: 20px;
+    }
+
+    #navigation ul{
+        flex-direction: column;
+        justify-content: center;
+        margin: 10px 0 5px 0;
+    }
+    #navigation ul:first-child li{
+        margin: 5px;
+    }
+    #navigation ul:last-child li{
+        margin: 20px;
+    }
+
 }

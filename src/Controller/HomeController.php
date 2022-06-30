@@ -17,4 +17,13 @@ class HomeController extends AbstractController
             'titre' => 'Raffutage-affutage de couteau près de Sarre-Union',
         ]);
     }
+    /**
+     * @Route("/condition-generale-utilisation", name="app_cgu")
+     */
+    public function cgu(): Response
+    {
+        return $this->render('home/cgu.html.twig', [
+            'titre' => ' - Condition générale d\'utilisation',
+        ]);
+    }
 }

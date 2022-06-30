@@ -27,13 +27,13 @@ class RegistrationFormType extends AbstractType
                         [
                             'message' => 'Nom vide',
                         ]
-                    ), /*
+                    ), 
                     new Regex(
                         [
-                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                            'pattern' => "/^[a-zA-Z\s]*$/",
                             'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
                         ]
-                    ),*/
+                    ),
                 ],
                 'attr' => [
                     'placeholder' => 'Nom',
@@ -46,13 +46,13 @@ class RegistrationFormType extends AbstractType
                         [
                             'message' => 'Prénom vide',
                         ]
-                    ), /*
+                    ), 
                     new Regex(
                         [
-                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                            'pattern' => "/^[a-zA-Z\s]*$/",
+                            'message' => 'Doit contenir: majuscule, minuscule !',
                         ]
-                    ),*/
+                    ),
                 ],
                 'attr' => [
                     'placeholder' => 'Prenom',
@@ -66,13 +66,13 @@ class RegistrationFormType extends AbstractType
                         [
                             'message' => 'Téléphone vide',
                         ]
-                    ), /*
+                    ), 
                     new Regex(
                         [
-                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                            'pattern' => "/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/",
+                            'message' => 'Numéro de téléphone invalide',
                         ]
-                    ),*/
+                    ),
                 ],
                 'attr' => [
                     'placeholder' => 'Téléphone',
@@ -126,13 +126,13 @@ class RegistrationFormType extends AbstractType
                         [
                             'message' => 'Mot de passe vide',
                         ]
-                    ), /*
+                    ), 
                     new Regex(
                         [
                             'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
                             'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
                         ]
-                    ),*/
+                    ),
                 ],
             ])
             ->add('valider', SubmitType::class, [

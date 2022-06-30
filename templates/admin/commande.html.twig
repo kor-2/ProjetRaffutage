@@ -50,7 +50,14 @@
                     {{ somCout }} €
                 </td>
 
-                <td><a class="btn btn-primary" href="{{ path('admin_modif_commande', {'id' : commande.id}) }}"><i class="bi bi-pencil"></i></a></td>
+                <td>
+                {% if commande.facture.paye %}
+                    <i class="bi bi-x-lg"></i>
+                {% else %}
+                    
+                    <a class="btn btn-primary" href="{{ path('admin_modif_commande', {'id' : commande.id}) }}"><i class="bi bi-pencil"></i></a>
+                {% endif %}
+                </td>
                 <td><a class="btn btn-success" href="{{ path('app_pdf', {'id' : commande.id}) }}"><i class="bi bi-receipt-cutoff"></i></a></td>
                 <td><a class="btn btn-secondary" href="{{ path('app_pdf_telechargement', {'id' : commande.id}) }}"><i class="bi bi-download"></i></a></td>
                 <td>
