@@ -10,15 +10,18 @@
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    
+    /*border: 1px solid black;*/
 }
 
+html,
+body{
+    min-height: 100vh;
+}
 #grosWrapper{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-   
-    
+    min-height: 100vh;
 }
 
 #wrapper{
@@ -28,7 +31,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
 }
 h1{
     font-size: 5em;
@@ -40,6 +42,7 @@ h2{
 h3{
     font-size: 1.5em;
 }
+
 
 .m-y{
     margin: 10px 0;
@@ -62,6 +65,7 @@ h3{
     margin: 0 auto;
     width: 80%;
 }
+
 
 
 /*
@@ -98,7 +102,9 @@ h3{
 */
 
 .logo{
-    width: 20%;
+    width: 15%;
+    display: flex;
+    align-items: center;
 }
 
 .logo a{
@@ -151,7 +157,8 @@ h3{
 */
 .ligneGrise{
     height: 1px;
-    width: 350px;
+    max-width: 350px;
+    width: 80%;
     background-color: var(--ombre);
 }
 
@@ -235,6 +242,28 @@ h3{
     box-sizing: content-box;
     margin: 0 auto;
 }
+
+#btnBurger{
+    display: none;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+
+#btnBurger div{
+    height: 100%;
+}
+#btnBurger p i{
+    color: white;
+    padding: 5px;
+    font-size: 1.5em;
+}
+
+.hidden{
+    display: none !important;
+}
+
+
 /*
 ********************** Footer
 */
@@ -442,13 +471,14 @@ main h2{
 /***********************************************************************************************
 Debut responsive
 ************************************************************************************************/
-
-@media screen and (max-width: 768px) {
-    
+@media screen and (max-width: 904px) {
 
     /*
     * ******************Navbar
     */
+    #navigation .logo{
+        margin: 0 auto;
+    }
 
     .navContainer{
         flex-direction: column;
@@ -457,12 +487,39 @@ Debut responsive
 
     #navigation ul{
         justify-content: center;
-        margin: 10px 0 5px 0;
+        margin: 10px 0 10px 0;
+    }
+    /*
+    * *********************** page Prise de rendez-vous
+    */
+
+    .formRdv{
+        flex-direction: column;
+    }
+    .rdv,
+    .type{
+        width: 100%;
+        padding: 5px 20px;
+    }
+}
+@media screen and (max-width: 768px) {
+    
+    footer .logo{
+        width: 30%;
     }
 
 }
 
 @media screen and (max-width: 576px) {
+
+    #navigation .logo{
+        margin: 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+    #navigation .logo div:first-child{
+        width: 30%;
+    }
     
 
     /*
@@ -471,19 +528,59 @@ Debut responsive
 
     .navContainer{
         flex-direction: column;
-        padding-bottom: 20px;
+        padding-bottom:0 ;
     }
 
-    #navigation ul{
+    .navContainer ul{
         flex-direction: column;
         justify-content: center;
         margin: 10px 0 5px 0;
     }
-    #navigation ul:first-child li{
-        margin: 5px;
+    #navigation ul li {
+        padding: 5px;
     }
-    #navigation ul:last-child li{
+    .navContainer ul:last-child li{
         margin: 20px;
     }
+    
+    /*
+    * ************************Main Accueil
+    */
+    h1{
+        font-size: 3em;
+    }
+
+
+
+    #infoAccueil{
+
+        grid-template-columns: 1fr;
+        gap: 1%;
+
+    }
+    footer{
+        
+        height: 250px;
+    }
+
+    footer .logo{
+        width: 40%;
+    }
+
+    .footerContainer{
+        flex-direction: column;
+        
+    }
+    #listFooter ul{
+        flex-direction: column;
+        text-align: center;
+    }
+    #listFooter ul li{
+        padding: 10px 0;
+    }
+    #btnBurger{
+        display: block;
+    }
+    
 
 }

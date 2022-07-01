@@ -29,19 +29,27 @@
                 <div class="navContainer">
 
                 
-                    <ul>
-                        <div class="logo">
+                    <div class="logo">
+                        <div>
+
                             <a href="{{ path('app_home') }}">
                                 <img src="{{ asset('image/Raffutage-logos_white.png') }}" alt="Logo raffutage">
                             </a>
                         </div>
+                        <div id="btnBurger" data-choice="burger">
+                            <p><i class="fa-solid fa-bars" id="burger"></i></p>
+                        </div>
+
+
+                    </div>
+                    <ul class="btnMenu hidden">
                         <li><a href="{{ path('app_home') }}">Accueil</a></li>
                         <li><a href="{{ path('app_commande') }}">Rendez vous</a></li>
                         <li><a href="#">FAQ</a></li>
                         <li><a href="#">Contact</a></li>
                         
                     </ul>
-                    <ul>
+                    <ul class="btnMenu hidden">
                     {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('admin') }}">Admin</a></li>
                         
@@ -57,6 +65,7 @@
                     {% endif %}
 
                     </ul>
+                    
                 </div>
 
             

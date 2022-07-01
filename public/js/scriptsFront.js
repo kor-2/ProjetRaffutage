@@ -49,3 +49,36 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     calendar.render();
   })
+
+  //////////////////////////////////////////////////////
+  // menu burger
+  //////////////////////////////////////////////////////
+
+let btnBurger = document.getElementById('btnBurger')
+btnBurger.addEventListener('click', function(){
+
+    let btnMenu = document.querySelectorAll('.btnMenu')
+
+    btnMenu.forEach(function(btnM){
+
+        btnM.classList.toggle('hidden')
+    })
+    
+    if (document.getElementById('burger').classList.contains('fa-bars')) {
+        
+        document.getElementById('burger').classList.replace('fa-bars','fa-xmark')
+    }else{
+        document.getElementById('burger').classList.replace('fa-xmark','fa-bars')
+    }
+
+    
+})
+
+if (window.screen.width > 576) {
+  let btnMenu = document.querySelectorAll('.btnMenu')
+  btnMenu.forEach(function(btnM) {
+    
+    btnM.classList.remove('hidden')
+    document.getElementById('burger').classList.replace('fa-bars','fa-xmark')
+  });
+}
