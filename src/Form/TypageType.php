@@ -4,13 +4,14 @@ namespace App\Form;
 
 use App\Entity\Typage;
 use App\Entity\TypeCouteau;
-use App\Form\DataTransformer\CommandeTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use App\Form\DataTransformer\CommandeTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class TypageType extends AbstractType
 {
@@ -22,7 +23,7 @@ class TypageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nb_couteau',NumberType::class,[
+            ->add('nb_couteau',IntegerType::class,[
                 'label' => 'Nombre de couteau',
                 'attr' => [
                     'min' => '1', 

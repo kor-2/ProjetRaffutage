@@ -467,6 +467,10 @@ main h2{
     text-align: center;
     margin: 20px 0;
 }
+.fc-event-title,
+.fc-event-time{
+    font-size: .85em;
+}
 
 /***********************************************************************************************
 Debut responsive
