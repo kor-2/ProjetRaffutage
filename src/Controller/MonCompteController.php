@@ -39,6 +39,7 @@ class MonCompteController extends AbstractController
     {
         $user = $this->getUser();
         $entityManager = $doctrine->getManager();
+        // appel le formulaire
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
