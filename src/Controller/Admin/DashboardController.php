@@ -56,7 +56,7 @@ class DashboardController extends AbstractDashboardController
         $rdvLibre = [];
         foreach ($plans as $plan) {
             $rdvLibre[] = [
-                'title' => 'Créneau libre',
+                'title' => 'Libre',
                 'id' => $plan->getId(),
                 'start' => $plan->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $plan->getFin()->format('Y-m-d H:i:s'),
@@ -67,7 +67,7 @@ class DashboardController extends AbstractDashboardController
         $pris = $presRepo->getCreneau(true, false, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
-                'title' => 'Créneau réservé',
+                'title' => 'Réservé',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
@@ -79,7 +79,7 @@ class DashboardController extends AbstractDashboardController
         $pris = $presRepo->getCreneau(true, true, true, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
-                'title' => 'Créneau indisponible',
+                'title' => 'Indispo',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
@@ -93,7 +93,7 @@ class DashboardController extends AbstractDashboardController
         $pris = $presRepo->getCreneau(true, false, true);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
-                'title' => 'Créneau réservé',
+                'title' => 'Réservé',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),

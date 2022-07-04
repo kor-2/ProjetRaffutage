@@ -65,7 +65,11 @@ h3{
     margin: 0 auto;
     width: 80%;
 }
-
+#map { 
+    height: 450px;
+    width: 90%;
+    margin-top: 20px;
+}
 
 
 /*
@@ -365,6 +369,12 @@ main h2{
     margin-top: 10px;
 }
 
+.description p{
+    text-align: center;
+    width: 90%;
+    margin: 30px auto;
+}
+
 /*
 * ******************** Formulaire de login 
 */
@@ -467,10 +477,7 @@ main h2{
     text-align: center;
     margin: 20px 0;
 }
-.fc-event-title,
-.fc-event-time{
-    font-size: .85em;
-}
+
 
 /***********************************************************************************************
 Debut responsive

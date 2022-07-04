@@ -25,6 +25,7 @@ class CommandeType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'label' => 'type de couteau'
             ])
             ->add('Valider', SubmitType::class,[
                 'attr'=>[

@@ -82,3 +82,16 @@ if (window.screen.width > 576) {
     document.getElementById('burger').classList.replace('fa-bars','fa-xmark')
   });
 }
+
+//////////////////////////////////////////////////////
+// map leaflet
+//////////////////////////////////////////////////////
+
+let map = L.map('map').setView([48.910595, 7.148211], 16);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+var marker = L.marker([48.910595, 7.148211]).addTo(map);
+marker.bindPopup("<b>Adresse</b><br>20 rue des Près 67320 Thal-Drulingen").openPopup();
