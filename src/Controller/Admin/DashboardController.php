@@ -71,7 +71,7 @@ class DashboardController extends AbstractDashboardController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'color' => '#808080',
+                'color' => '#008ae6',
                 'code' => 'INDISPO'
             ];
         }
@@ -83,7 +83,7 @@ class DashboardController extends AbstractDashboardController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'color' => '#808080',
+                'color' => '#008ae6',
                 'code' => 'INDISPO'
                 
             ];
@@ -97,7 +97,7 @@ class DashboardController extends AbstractDashboardController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'color' => '#808080',
+                'color' => '#008ae6',
                 'code' => 'INDISPO'
             ];
         }

@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
                     new Regex(
                         [
                             'pattern' => "/^[a-zA-Z\s]*$/",
-                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                            'message' => 'N\'est pas valide',
                         ]
                     ),
                 ],
@@ -50,7 +50,7 @@ class RegistrationFormType extends AbstractType
                     new Regex(
                         [
                             'pattern' => "/^[a-zA-Z\s]*$/",
-                            'message' => 'Doit contenir: majuscule, minuscule !',
+                            'message' => 'N\'est pas valide',
                         ]
                     ),
                 ],
@@ -65,12 +65,6 @@ class RegistrationFormType extends AbstractType
                     new NotBlank(
                         [
                             'message' => 'Téléphone vide',
-                        ]
-                    ), 
-                    new Regex(
-                        [
-                            'pattern' => "/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/",
-                            'message' => 'Numéro de téléphone invalide',
                         ]
                     ),
                 ],
@@ -129,7 +123,7 @@ class RegistrationFormType extends AbstractType
                     ), 
                     new Regex(
                         [
-                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                            'pattern' => "/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/",
                             'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
                         ]
                     ),

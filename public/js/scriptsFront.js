@@ -95,3 +95,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 var marker = L.marker([48.910595, 7.148211]).addTo(map);
 marker.bindPopup("<b>Adresse</b><br>20 rue des Près 67320 Thal-Drulingen").openPopup();
+
+//////////////////////////////////////////////////////
+// affichage model suppression de compte
+//////////////////////////////////////////////////////
+
+
+let btnShow = document.getElementById('showModal')
+
+btnShow.addEventListener('click', function(){
+  let modal = document.getElementById('modal')
+  console.log(modal);
+})
