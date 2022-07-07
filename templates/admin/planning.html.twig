@@ -7,10 +7,40 @@
 {% block content %}
 
 <div class="calendarContainer">
-    <div id="calendar">
+    <div id="calendar"></div>
+    <div id="modalInfo" class="hidden">
+        <h3>Informations</h3>
+        
+        <p>Client: <span id="client"></span> </p>
+        <p>Email: <span id="email"></span> </p>
+        <p>Téléphone: <span id="tel"></span></p>
+        <p>Arriver: <span id="debut"></span></p>
+    
+        <h4>Details: </h4>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Type de couteau</th>
+                        <th>Nombre de couteau</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody id="details">
+                        
+                    </tbody>
+                </tbody>
+            </table>
+
+        </div>
+        <h5 >Total couteaux: <span id="total"></span></h5>
+    
+        <button id="hide" class="btn btn-secondary" >Fermer</button>
+
     </div>
 </div>
 <input type="hidden" id="rdvJs" data-choice="{{ data }}"></input>
+
 {% endblock %}
 
 

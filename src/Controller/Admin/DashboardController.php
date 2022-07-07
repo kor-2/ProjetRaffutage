@@ -66,13 +66,27 @@ class DashboardController extends AbstractDashboardController
         // prend les créneaux pris
         $pris = $presRepo->getCreneau(true, false, false);
         foreach ($pris as $pri) {
+            $commande = $pri->getCommandes();
+            $client ='';
+            $email ='';
+            $details = [];
+            foreach ($commande as $cmd) {
+                $client .= $cmd->getUser()->nomEntier();
+                $email .= $cmd->getUser()->getEmail();
+                $tel = $cmd->getUser()->getTelephone();
+                $details = $cmd->getDetails();
+            }
             $rdvLibre[] = [
                 'title' => 'Réservé',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
                 'color' => '#008ae6',
-                'code' => 'INDISPO'
+                'code' => 'INDISPO',
+                'client'=> $client,
+                'email'=> $email,
+                'tel'=> $tel,
+                'details' => $details
             ];
         }
         // prend les créneaux libre mais dans le passé donc indisponible
@@ -92,13 +106,27 @@ class DashboardController extends AbstractDashboardController
         
         $pris = $presRepo->getCreneau(true, false, true);
         foreach ($pris as $pri) {
+            $commande = $pri->getCommandes();
+            $client ='';
+            $email ='';
+            $details = [];
+            foreach ($commande as $cmd) {
+                $client = $cmd->getUser()->nomEntier();
+                $email = $cmd->getUser()->getEmail();
+                $tel = $cmd->getUser()->getTelephone();
+                $details = $cmd->getDetails();
+            }
             $rdvLibre[] = [
                 'title' => 'Réservé',
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
                 'color' => '#008ae6',
-                'code' => 'INDISPO'
+                'code' => 'INDISPO',
+                'client'=> $client,
+                'email'=> $email,
+                'tel'=> $tel,
+                'details' => $details
             ];
         }
         $data = json_encode($rdvLibre);

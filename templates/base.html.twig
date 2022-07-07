@@ -46,14 +46,14 @@
 
 
                     </div>
-                    <ul class="btnMenu hidden">
+                    <ul class="btnMenu">
                         <li><a href="{{ path('app_home') }}">Accueil</a></li>
                         <li><a href="{{ path('app_commande') }}">Rendez vous</a></li>
                         <li><a href="#">FAQ</a></li>
                         <li><a href="#">Contact</a></li>
                         
                     </ul>
-                    <ul class="btnMenu hidden">
+                    <ul class="btnMenu">
                     {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('admin') }}">Admin</a></li>
                         
@@ -132,6 +132,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js" integrity="sha256-Mu1bnaszjpLPWI+/bY7jB6JMtHj5nn9zIAsXMuaNxdk=" crossorigin="anonymous"></script>
                 <script src="{{ asset('js/gsf.js') }}" ></script>
                 <script src="{{ asset('js/scriptsFront.js') }}" ></script>
+                <script src="{{ asset('js/scriptsCompte.js') }}" ></script>
             {% endblock %}
         </div>
     </body>

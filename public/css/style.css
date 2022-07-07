@@ -458,7 +458,7 @@ main h2{
     cursor: pointer;
 }
 
-.modal{
+#modal{
     background-color: var(--blanc);
     border: 1px solid rgb(38, 57, 77);
     width: 30%;
@@ -468,6 +468,10 @@ main h2{
     position: absolute;
     top: 30%;
     left: 35%;
+    text-align: center;
+}
+#modal p{
+    margin-bottom: 10px;
 }
 
 /*

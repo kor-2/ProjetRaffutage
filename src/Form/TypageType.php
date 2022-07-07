@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Typage;
 use App\Entity\TypeCouteau;
+use App\Repository\TypageRepository;
 use Symfony\Component\Form\AbstractType;
+use App\Repository\TypeCouteauRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Form\DataTransformer\CommandeTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,9 +17,10 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class TypageType extends AbstractType
 {
-    public function __construct(CommandeTransformer $transformer)
+    public function __construct(CommandeTransformer $transformer, TypeCouteauRepository $typeRepo)
     {
         $this->transformer = $transformer;
+        $this->typeRepo = $typeRepo;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -35,6 +38,7 @@ class TypageType extends AbstractType
             ->add('typeCouteau',EntityType::class, [
                 'label' => 'Type',
                 'class' => TypeCouteau::class,
+                'choices'=> $this->typeRepo->findBy(['active' => true]),
                 'attr' => [
                     'class'=>'m-y'
                 ]

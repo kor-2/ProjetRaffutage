@@ -6,3 +6,21 @@
     width: 90%;
     margin: auto;
 }
+
+.hidden{
+    display: none;
+}
+
+#modalInfo{
+    background-color: #ffffff;
+    border: 1px solid rgb(38, 57, 77);
+    width: 30%;
+    padding: 30px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 30%;
+    left: 35%;
+
+    z-index: 1;
+}

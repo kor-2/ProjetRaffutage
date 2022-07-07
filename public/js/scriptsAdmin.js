@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   let rdv = document.getElementById("rdvJs").dataset.choice
-  
+  let modal = document.getElementById('modalInfo')
+  let inputClient = document.getElementById('client')
+  let inputEmail = document.getElementById('email')
+  let inputTel = document.getElementById('tel')
+  let inputDetail = document.getElementById('details')
+  let inputDebut = document.getElementById('debut')
+  let inputTotal = document.getElementById('total')
 
 
   // analyse une chaine de caractère et la transforme en JSON 
@@ -33,7 +39,50 @@ document.addEventListener('DOMContentLoaded', function() {
       endTime: '18:00', 
     },
     navLinks: true,
+    eventClick: function(presta){
+        
+      let valuePresta = presta.event;
+      
+        if (valuePresta.extendedProps.client){
+
+          modal.classList.remove('hidden')
+          let nomClient = valuePresta.extendedProps.client
+          let valueEmail = valuePresta.extendedProps.email
+          let valueTel = valuePresta.extendedProps.tel
+          let valueDetails = valuePresta.extendedProps.details
+          let valueDebut = new Intl.DateTimeFormat('fr-FR',{ dateStyle: 'long', timeStyle: 'short' }).format(valuePresta.start)
+          
+
+          inputClient.innerText = nomClient
+          inputDebut.innerText = valueDebut
+          inputEmail.innerText = valueEmail
+          inputTel.innerText = valueTel
+          let sumCt = 0;
+          valueDetails.forEach((detail) => {
+            
+            inputDetail.innerHTML += "<tr><td>"+detail.type+"</td><td>"+ detail.nbCouteau+"</td></tr>";
+          
+            sumCt = sumCt + parseInt(detail.nbCouteau)
+          });
+          inputTotal.innerText =  sumCt;
+
+
+        }else{
+          alert('Personne n\'a réservé ce créneau.')
+        }
+      },
     })
   calendar.render();
+
+  // la modal en display none
+  let btnHide = document.getElementById('hide')
+
+    btnHide.addEventListener('click', function(){
+  
+      inputDetail.innerHTML = ""
+      inputTotal.innerText =  "";
+      modal.classList.add('hidden')
+  })
+
 })
 
