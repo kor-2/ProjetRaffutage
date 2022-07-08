@@ -11,14 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let creneauLibre = JSON.parse(rdv)
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
+
+      // events : attend un json ou est stocké les créneaux
+      events: creneauLibre,
       // configuration de l'affichage de full calendar
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,listMonth'
       },
-      // events : attend un json ou est stocké les créneaux
-      events: creneauLibre,
       locale: 'fr',
       nowIndicator: true,
       businessHours: {
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
       eventClick: function(presta){
         
         let valuePresta = presta.event;
+        // si 'code' et null alors ...
         if (!valuePresta.extendedProps.code) {
           let input = document.getElementById("rdvJs")
           let show = document.getElementById("selection")
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
           let debutFormat = new Intl.DateTimeFormat('fr-FR',{ dateStyle: 'long', timeStyle: 'short' }).format(debut)
           show.innerText = debutFormat
           
-        }else{
+        }else{ // sinon ...
           alert("Le créneau est indisponible")
         }
       },

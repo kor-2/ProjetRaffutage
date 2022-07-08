@@ -24,7 +24,7 @@ class CommandeController extends AbstractController
         // table pour ful calendar
         //////////////////////////////////////////////////////
 
-        // prend les créneaux libre
+        // prend les prestations libres
         $plans = $presRepo->getCreneau(true, true, false ,false);
         $rdvLibre = [];
         foreach ($plans as $plan) {
@@ -37,7 +37,7 @@ class CommandeController extends AbstractController
             ];
         }
         
-        // prend les créneaux pris
+        // prend les prestations réservées
         $pris = $presRepo->getCreneau(true, false, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
@@ -49,7 +49,7 @@ class CommandeController extends AbstractController
                 'code' => 'INDISPO'
             ];
         }
-        // prend les créneaux libre mais dans le passé donc indisponible
+        // prestations libres mais dans le passé donc indisponible
         $pris = $presRepo->getCreneau(true, true, true, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
@@ -62,8 +62,7 @@ class CommandeController extends AbstractController
                 
             ];
         }
-         // prend les créneaux pris et dans le passé
-        
+         // prestations réservées et dans le passé
          $pris = $presRepo->getCreneau(true, false, true);
          foreach ($pris as $pri) {
              $rdvLibre[] = [

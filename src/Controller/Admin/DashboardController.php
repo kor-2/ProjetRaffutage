@@ -51,7 +51,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function planning(PrestationRepository $presRepo): Response
     {
-        // prend les créneaux libre/
+        // prend les prestations libres
         $plans = $presRepo->getCreneau(true, true, false ,false);
         $rdvLibre = [];
         foreach ($plans as $plan) {
@@ -63,9 +63,10 @@ class DashboardController extends AbstractDashboardController
                 'color' => '#009933',
             ];
         }
-        // prend les créneaux pris
+        // prend les prestations réservées
         $pris = $presRepo->getCreneau(true, false, false);
         foreach ($pris as $pri) {
+            // 
             $commande = $pri->getCommandes();
             $client ='';
             $email ='';
@@ -82,14 +83,13 @@ class DashboardController extends AbstractDashboardController
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
                 'color' => '#008ae6',
-                'code' => 'INDISPO',
                 'client'=> $client,
                 'email'=> $email,
                 'tel'=> $tel,
                 'details' => $details
             ];
         }
-        // prend les créneaux libre mais dans le passé donc indisponible
+        // prestations libres mais dans le passé donc indisponible
         $pris = $presRepo->getCreneau(true, true, true, false);
         foreach ($pris as $pri) {
             $rdvLibre[] = [
@@ -97,12 +97,10 @@ class DashboardController extends AbstractDashboardController
                 'id' => $pri->getId(),
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
-                'color' => '#008ae6',
-                'code' => 'INDISPO'
-                
+                'color' => '#808080',
             ];
         }
-        // prend les créneaux pris et dans le passé
+        // prestations réservées et dans le passé
         
         $pris = $presRepo->getCreneau(true, false, true);
         foreach ($pris as $pri) {
@@ -122,15 +120,16 @@ class DashboardController extends AbstractDashboardController
                 'start' => $pri->getDebut()->format('Y-m-d H:i:s'),
                 'end' => $pri->getFin()->format('Y-m-d H:i:s'),
                 'color' => '#008ae6',
-                'code' => 'INDISPO',
                 'client'=> $client,
                 'email'=> $email,
                 'tel'=> $tel,
                 'details' => $details
             ];
         }
-        $data = json_encode($rdvLibre);
 
+        // encode en json le tableau de toute les prestations
+        $data = json_encode($rdvLibre);
+        // envoi dans la vue
         return $this->render('admin/planning.html.twig', [
             'data' => $data,
         ]);

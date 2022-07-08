@@ -4,11 +4,11 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  // recuperation des donnée de la table Prestation 
-  // retourne une chaine de caratère exemple ->[{"title":"Cr\u00e9neau libre","id":1,"start":"2022-05-02 09:00:00","end":"2022-05-02 10:00:00","backgroundColor":"#009933"}]
+ 
 
 
-  let rdv = document.getElementById("rdvJs").dataset.choice
+  // Element pour la modal
+  
   let modal = document.getElementById('modalInfo')
   let inputClient = document.getElementById('client')
   let inputEmail = document.getElementById('email')
@@ -16,29 +16,34 @@ document.addEventListener('DOMContentLoaded', function() {
   let inputDetail = document.getElementById('details')
   let inputDebut = document.getElementById('debut')
   let inputTotal = document.getElementById('total')
-
-
+  
+  // recuperation des donnée de la table Prestation 
+  // retourne une chaine de caratère
+  let rdv = document.getElementById("rdvJs").dataset.choice
   // analyse une chaine de caractère et la transforme en JSON 
   let creneauLibre = JSON.parse(rdv)
       
   let calendarEl = document.getElementById('calendar');
   let calendar = new FullCalendar.Calendar(calendarEl, {
+    // donne le JSON a l'agenda
+    events: creneauLibre,
     // configuration de l'affichage de full calendar
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
     },
-    events: creneauLibre,
-    locale: 'fr',
-    nowIndicator: true,
-    weekNumbers: true,
-    businessHours: {
+    
+    locale: 'fr', // la langue
+    nowIndicator: true, // place un marqueur sur le jour et l'heure actuelle
+    weekNumbers: true, // affiche les numéros de semaine
+    businessHours: { //grise les jours et heures non travaillé
       daysOfWeek: [ 1, 2, 3, 4, 5, 6 ],
       startTime: '09:00', 
       endTime: '18:00', 
     },
-    navLinks: true,
+    navLinks: true, // click sur un jour puis affiche le jour en question
+    // fonction pour afficher dans un modal les détails des prestation réservées 
     eventClick: function(presta){
         
       let valuePresta = presta.event;
