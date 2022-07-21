@@ -124,7 +124,7 @@ class RegistrationFormType extends AbstractType
                     new Regex(
                         [
                             'pattern' => "/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/",
-                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                            'message' => 'Doit contenir 6 caratères minimum dont : majuscule, minuscule, chiffre, un caratère spécial',
                         ]
                     ),
                 ],
