@@ -78,6 +78,7 @@ class PrestationRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
         $sub->select('pr')
             ->from('App\Entity\Prestation', 'pr');
+        // prend les prestations libre ou non
         switch ($libre) {
             case true:
                 $sub->where($sub->expr()->notIn('pr.id', $qb->getDQL()));
@@ -86,6 +87,7 @@ class PrestationRepository extends ServiceEntityRepository
                 $sub->where($sub->expr()->in('pr.id', $qb->getDQL()));
                 break;
         }
+        // prend les prestations dans le passé ou pas
         switch ($passe) {
             case true:
                 $sub->andWhere('pr.debut < :today')
