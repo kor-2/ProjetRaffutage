@@ -73,7 +73,7 @@ class PrestationRepository extends ServiceEntityRepository
         $qb->select('p')
             ->from('App\Entity\Prestation', 'p')
             ->leftJoin('p.commandes', 'co')
-            ->where('co.id != :id');
+            ->where('co.prestation != :id');
 
         $sub = $em->createQueryBuilder();
         $sub->select('pr')
@@ -98,7 +98,6 @@ class PrestationRepository extends ServiceEntityRepository
                 ->setParameter('today', $d);
                 break;
         }
-        
         $sub->setParameter('id', 'p.id')
             ->orderby('pr.debut');
         if ($getResult) {
